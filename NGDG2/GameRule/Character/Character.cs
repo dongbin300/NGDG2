@@ -284,7 +284,7 @@ namespace NGDG2
         {
             using (FileStream stream = new FileStream(fileName, FileMode.Create))
             {
-                using(StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
+                using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
                 {
                     try
                     {
@@ -320,13 +320,16 @@ namespace NGDG2
                         writer.WriteLine(Gold);
                         writer.WriteLine();
                         writer.WriteLine("[Item]");
-                        foreach(Slot slot in Inventory.Slots)
+                        foreach (Slot slot in Inventory.Slots)
                         {
+                            if (slot.Item == null)
+                                continue;
+
                             writer.WriteLine($"{slot.Item.Name}|{slot.ItemCount}");
                         }
                         writer.WriteLine("*");
                         writer.WriteLine("[MountEquipment]");
-                        foreach(Equipment equipment in MountEquipments)
+                        foreach (Equipment equipment in MountEquipments)
                         {
                             writer.WriteLine(equipment.Name);
                         }
@@ -334,6 +337,9 @@ namespace NGDG2
                         writer.WriteLine("[Skill]");
                         foreach (SkillSlot skillSlot in SkillBook.Slots)
                         {
+                            if (skillSlot.Skill == null)
+                                continue;
+
                             writer.WriteLine($"{skillSlot.Skill.Name}|{skillSlot.SkillLevel}");
                         }
                         writer.WriteLine("*");
