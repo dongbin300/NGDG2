@@ -29,7 +29,7 @@ namespace NGDG2
             set
             {
                 level = value;
-                RExp = (int)(777 * Math.Pow(level + 1, 1.72));
+                RExp = (int)(333 * Math.Pow(level + 1, 1.72));
             }
         }
 

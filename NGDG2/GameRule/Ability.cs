@@ -290,7 +290,7 @@ namespace NGDG2
                     Intelli = 20;
                     Willpower = 20;
                     Concentration = 30;
-                    Agility = 60;
+                    Agility = 1200;
                     break;
 
                 default:

@@ -2,6 +2,9 @@
 {
     /// <summary>
     /// 게임 내 모든 아이템 (장비도 포함)
+    /// 
+    /// - 아이템 정보
+    /// 
     /// </summary>
     public class Item
     {
@@ -34,8 +37,19 @@
         {
             Name = name;
 
-            // TODO
+            switch (name)
+            {
+                case "고블린 가죽":
+                    Make("고블린의 가죽이다.", 16);
+                    break;
+            }
         }
 
+        public void Make(string description, int salePrice, int level = 0)
+        {
+            Description = description;
+            SalePrice = salePrice;
+            Level = level;
+        }
     }
 }

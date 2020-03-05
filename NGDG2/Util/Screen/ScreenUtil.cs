@@ -1,4 +1,5 @@
 ﻿using System;
+using NGDG2.Screen;
 
 namespace NGDG2
 {

@@ -7,7 +7,8 @@
 
         public SkillSlot()
         {
-
+            Skill = new Skill();
+            SkillLevel = 0;
         }
 
         /// <summary>

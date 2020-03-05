@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NGDG2
+namespace NGDG2.Screen
 {
     interface IScreen
     {

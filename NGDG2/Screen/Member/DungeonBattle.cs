@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NGDG2
+namespace NGDG2.Screen
 {
     /// <summary>
     /// 던전 전투 화면
@@ -27,8 +27,8 @@ namespace NGDG2
         public DungeonBattle()
         {
             targets = new List<Monster>();
-            characterHit = new HighlightEffect(ConsoleColor.White, ConsoleColor.Red, 1);
-            monsterHit = new HighlightEffect(ConsoleColor.White, ConsoleColor.Red, 1);
+            characterHit = new HighlightEffect(ConsoleColor.White, ConsoleColor.Red, 2);
+            monsterHit = new HighlightEffect(ConsoleColor.White, ConsoleColor.Red, 2);
         }
 
         public void Make(string name)
@@ -44,6 +44,21 @@ namespace NGDG2
         /// </summary>
         public void Update()
         {
+            // 웨이브의 모든 몬스터를 잡았으면 다음 웨이브 진행
+            if(d.Waves[CurrentWave].Monsters.Count <= 0)
+            {
+                // 모든 웨이브를 마쳤으면 던전 클리어
+                if(CurrentWave + 1 >= d.Waves.Count)
+                {
+                    ClearDungeon();
+                    return;
+                }
+                else
+                {
+                    CurrentWave++;
+                }
+            }
+
             foreach (Monster monster in d.Waves[CurrentWave].Monsters)
             {
                 // 몬스터 연산
@@ -91,6 +106,18 @@ namespace NGDG2
             CHelper.DrawBar(ScreenUtil.Left + Character.AttackCool, 26, Character.TotalAbility.CoolTick - Character.AttackCool, ConsoleColor.DarkGray);
             CHelper.WriteHighlight($"HP {Character.TotalAbility.HP}/{Character.TotalAbility.HPMax}", ScreenUtil.Left, 27, characterHit);
 
+            // 던전 보상 정보
+            CHelper.Write($"EXP + {d.AccumulatedExp}", 80, 3, ConsoleColor.Green);
+            CHelper.Write($"Gold + {d.AccumulatedGold}", 80, 4, ConsoleColor.Yellow);
+
+            int h = 5;
+            foreach (Slot slot in d.AccumulatedItems.Slots)
+            {
+                if (slot.Item == null)
+                    continue;
+
+                CHelper.Write(string.Format("{0,-20}{1,-10}", slot.Item.Name, slot.ItemCount), 80, h++);
+            }
         }
 
         public string React(ConsoleKey key)
@@ -132,7 +159,9 @@ namespace NGDG2
 
             // 몬스터 사망
             if (targets[0].TotalAbility.HP <= 0)
-                d.Waves[CurrentWave].Monsters.Remove(targets[0]);
+            {
+                KillMonster(targets[0]);
+            }
         }
 
         public void CharacterSkillsMonster(Skill skill)
@@ -161,7 +190,61 @@ namespace NGDG2
 
             // 캐릭터 사망
             if (Character.TotalAbility.HP <= 0)
-                ScreenManager.CurrentScreen = ScreenManager.Screen.Main;
+            {
+                KillCharacter();
+            }
+        }
+
+        /// <summary>
+        /// 몬스터가 죽음
+        /// </summary>
+        /// <param name="monster"></param>
+        public void KillMonster(Monster monster)
+        {
+            // 몬스터 리스트에서 죽은 몬스터 제외
+            d.Waves[CurrentWave].Monsters.Remove(monster);
+
+            // 경험치, 골드 드랍
+            d.AccumulatedExp += monster.Exp;
+            d.AccumulatedGold += monster.Gold;
+
+            // 아이템 드랍
+            foreach(Item item in monster.DropItems)
+            {
+                // 무조건 종류별로 1개씩만 드랍됨(버그 존재)
+                d.AccumulatedItems.Add(item, 1);
+            }
+        }
+
+        /// <summary>
+        /// 캐릭터가 죽음
+        /// </summary>
+        public void KillCharacter()
+        {
+            ScreenManager.CurrentScreen = ScreenManager.Screen.Main;
+        }
+
+        /// <summary>
+        /// 던전을 클리어
+        /// </summary>
+        public void ClearDungeon()
+        {
+            // 보상 지급
+            Character.Exp += d.AccumulatedExp;
+            Character.Exp += (long)(d.AccumulatedExp * 0.2);
+            Character.Gold += d.AccumulatedGold;
+            Character.Gold += (long)(d.AccumulatedGold * 0.2);
+            foreach (Slot slot in d.AccumulatedItems.Slots)
+            {
+                if (slot.Item == null)
+                    continue;
+
+                Character.Inventory.Add(slot.Item, slot.ItemCount);
+            }
+
+            // 던전 보상 화면 전환
+            DungeonResult.d = d;
+            ScreenManager.CurrentScreen = ScreenManager.Screen.DungeonResult;
         }
     }
 }

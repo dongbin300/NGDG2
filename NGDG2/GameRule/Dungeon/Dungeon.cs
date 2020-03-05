@@ -2,6 +2,21 @@
 
 namespace NGDG2
 {
+    /// <summary>
+    /// 던전
+    /// 
+    /// - 던전 정보
+    /// [웨이브 수]/[등장 몬스터]/[한 웨이브에 나오는 몬스터 수]
+    /// 
+    /// - 던전 보상
+    /// 던전 안에서 몬스터를 잡으면 EXP와 골드를 얻는다. (아이템도 확률적으로 드랍)
+    /// 이 EXP와 골드는 계속 축적되며 던전 클리어시 던전 클리어 보상과 함께 주어진다.
+    /// 클리어 보상은 던전에서 잡은 몬스터들의 총 EXP와 골드의 20%이다.
+    /// 
+    /// - 던전 즉시 퇴장
+    /// 던전을 진행하다가 나가고 싶으면 ESC키를 눌러서 나갈 수 있다.
+    /// 던전을 퇴장하면 잡았던 몬스터들의 보상도 날아가게 된다.
+    /// </summary>
     public class Dungeon
     {
         /// <summary>
@@ -28,6 +43,21 @@ namespace NGDG2
         /// 출현 몬스터 수
         /// </summary>
         public Bounds MonsterCountBounds;
+
+        /// <summary>
+        /// 누적된 경험치
+        /// </summary>
+        public long AccumulatedExp;
+
+        /// <summary>
+        /// 누적된 골드
+        /// </summary>
+        public long AccumulatedGold;
+
+        /// <summary>
+        /// 누적된 아이템
+        /// </summary>
+        public Inventory AccumulatedItems;
 
         public Dungeon()
         {
@@ -90,6 +120,11 @@ namespace NGDG2
             {
                 Waves.Add(new DungeonWave(monsterList, bound.Get()));
             }
+
+            // 던전 보상 초기화
+            AccumulatedExp = 0;
+            AccumulatedGold = 0;
+            AccumulatedItems = new Inventory(20);
         }
     }
 }

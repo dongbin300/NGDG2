@@ -79,6 +79,11 @@
         /// </summary>
         public int Cool;
 
+        public Skill()
+        {
+
+        }
+
         public Skill(string name)
         {
             Name = name;

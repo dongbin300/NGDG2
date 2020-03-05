@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using NGDG2.Screen;
 
 namespace NGDG2
 {
@@ -24,7 +25,7 @@ namespace NGDG2
         /// <summary>
         /// 콘솔창 Clear 간격 (단위: 틱)
         /// </summary>
-        public int ClearInterval = 20;
+        public int ClearInterval = 10;
 
 
         /// <summary>

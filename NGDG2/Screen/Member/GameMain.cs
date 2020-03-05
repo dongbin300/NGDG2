@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NGDG2
+namespace NGDG2.Screen
 {
     public class GameMain : IScreen
     {
@@ -19,15 +19,16 @@ namespace NGDG2
 
             // 캐릭터 스탯
             ScreenUtil.Stack(Character.Name);
-            ScreenUtil.Stack(Character.Class.Value);
-            ScreenUtil.Stack($"Lv {Character.Level}");
-            ScreenUtil.Stack($"EXP {Character.Exp}/{Character.RExp}");
-            ScreenUtil.Stack($"Gold {Character.Gold}");
+            ScreenUtil.Stack(Character.Class.Value, ConsoleColor.Gray);
+            ScreenUtil.Stack($"Lv {Character.Level}", ConsoleColor.Cyan);
+            ScreenUtil.Stack($"EXP {Character.Exp}/{Character.RExp}", ConsoleColor.Green);
+            ScreenUtil.Stack($"Gold {Character.Gold}", ConsoleColor.Yellow);
 
             // 바로가기
             CHelper.Write("[A] 저장", 80, 3);
             CHelper.Write("[S] 던전", 80, 4);
             CHelper.Write("[M] 내 캐릭터", 80, 5);
+            CHelper.Write("[I] 인벤토리", 80, 6);
         }
 
         public string React(ConsoleKey key)
@@ -42,6 +43,9 @@ namespace NGDG2
                     break;
                 case ConsoleKey.M:
                     ScreenManager.CurrentScreen = ScreenManager.Screen.CharacterInfo;
+                    break;
+                case ConsoleKey.I:
+                    ScreenManager.CurrentScreen = ScreenManager.Screen.Inventory;
                     break;
             }
 

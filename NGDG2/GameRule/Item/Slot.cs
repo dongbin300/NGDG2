@@ -7,7 +7,8 @@
 
         public Slot()
         {
-
+            Item = new Item();
+            ItemCount = 0;
         }
 
         /// <summary>

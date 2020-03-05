@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NGDG2
+namespace NGDG2.Screen
 {
     /// <summary>
     /// 스크린 매니저
@@ -18,7 +18,9 @@ namespace NGDG2
             Main,
             DungeonSelection,
             DungeonBattle,
-            CharacterInfo
+            DungeonResult,
+            CharacterInfo,
+            Inventory
         }
 
         private static Screen currentScreen;
@@ -52,7 +54,9 @@ namespace NGDG2
         public static GameMain Main;
         public static DungeonSelection DungeonSelection;
         public static DungeonBattle DungeonBattle;
+        public static DungeonResult DungeonResult;
         public static CharacterInfo CharacterInfo;
+        public static Inventory Inventory;
 
         public ScreenManager()
         {
@@ -68,7 +72,9 @@ namespace NGDG2
             Main = new GameMain();
             DungeonSelection = new DungeonSelection();
             DungeonBattle = new DungeonBattle();
+            DungeonResult = new DungeonResult();
             CharacterInfo = new CharacterInfo();
+            Inventory = new Inventory();
         }
 
         /// <summary>
@@ -94,8 +100,14 @@ namespace NGDG2
                 case Screen.DungeonBattle:
                     DungeonBattle.Show();
                     break;
+                case Screen.DungeonResult:
+                    DungeonResult.Show();
+                    break;
                 case Screen.CharacterInfo:
                     CharacterInfo.Show();
+                    break;
+                case Screen.Inventory:
+                    Inventory.Show();
                     break;
 
                 default:
@@ -121,8 +133,12 @@ namespace NGDG2
                     return DungeonSelection.React(key);
                 case Screen.DungeonBattle:
                     return DungeonBattle.React(key);
+                case Screen.DungeonResult:
+                    return DungeonResult.React(key);
                 case Screen.CharacterInfo:
                     return CharacterInfo.React(key);
+                case Screen.Inventory:
+                    return Inventory.React(key);
 
                 default:
                     return string.Empty;
