@@ -270,7 +270,80 @@ namespace NGDG2
                     }
                     catch
                     {
+                        throw new Exception("Character Load Failed.");
+                    }
+                }
+            }
+        }
 
+        /// <summary>
+        /// 파일에 캐릭터 데이터를 저장한다.
+        /// </summary>
+        /// <param name="fileName">캐릭터 파일 이름</param>
+        public static void SaveToFile(string fileName)
+        {
+            using (FileStream stream = new FileStream(fileName, FileMode.Create))
+            {
+                using(StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
+                {
+                    try
+                    {
+                        /* * * * Format * * *
+                        * MyNickName
+                        * 12
+                        * 7789
+                        * Gunner
+                        * 5815
+                        * 
+                        * [Item]
+                        * 붉은 구슬|24
+                        * 초콜릿3|21
+                        * 비밀상자|1
+                        * *
+                        * [MountEquipment]
+                        * 견고한 투구
+                        * 견고한 갑옷
+                        * 견고한 부츠
+                        * *
+                        * [Skill]
+                        * 스킬이름1|2
+                        * 스킬이름2|12
+                        * 스킬이름3|1
+                        * *
+                        * ***
+                        */
+
+                        writer.WriteLine(Name);
+                        writer.WriteLine(Level);
+                        writer.WriteLine(Exp);
+                        writer.WriteLine(Class.Name);
+                        writer.WriteLine(Gold);
+                        writer.WriteLine();
+                        writer.WriteLine("[Item]");
+                        foreach(Slot slot in Inventory.Slots)
+                        {
+                            writer.WriteLine($"{slot.Item.Name}|{slot.ItemCount}");
+                        }
+                        writer.WriteLine("*");
+                        writer.WriteLine("[MountEquipment]");
+                        foreach(Equipment equipment in MountEquipments)
+                        {
+                            writer.WriteLine(equipment.Name);
+                        }
+                        writer.WriteLine("*");
+                        writer.WriteLine("[Skill]");
+                        foreach (SkillSlot skillSlot in SkillBook.Slots)
+                        {
+                            writer.WriteLine($"{skillSlot.Skill.Name}|{skillSlot.SkillLevel}");
+                        }
+                        writer.WriteLine("*");
+                        writer.WriteLine("***");
+
+                        writer.Flush();
+                    }
+                    catch
+                    {
+                        throw new Exception("Character Save Failed.");
                     }
                 }
             }

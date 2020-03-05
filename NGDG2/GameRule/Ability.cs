@@ -36,7 +36,7 @@ namespace NGDG2
         /// 체력 : HP, HP회복, 방어력, 공격력
         /// 체력 수치가 n일 때
         /// HP + 15n, + (5+0.03n)%
-        /// HP회복 + 0.2n
+        /// HP회복 + 0.05n
         /// 방어력 + 5n, + (5+0.1n)%
         /// 공격력 + 2n, + (5+0.001n)%
         /// </summary>
@@ -54,7 +54,7 @@ namespace NGDG2
         /// 정신력 : MP, MP회복, 스킬계수
         /// 정신력 수치가 n일 때
         /// MP + 14n, + (5+0.03n)%
-        /// MP회복 + 0.25n
+        /// MP회복 + 0.07n
         /// 스킬계수 + 0.5n%
         /// </summary>
         public long Willpower;
@@ -63,8 +63,8 @@ namespace NGDG2
         /// 집중력 : 명중률, HP회복, MP회복
         /// 집중력 수치가 n일 때
         /// 명중률 : 50.0 + n^0.6
-        /// HP회복 + 0.4n
-        /// MP회복 + 0.5n
+        /// HP회복 + 0.15n
+        /// MP회복 + 0.2n
         /// </summary>
         public long Concentration;
 
@@ -234,12 +234,12 @@ namespace NGDG2
             HPMax = 6 * Power + 15 * Stamina;
             HPMax = MathUtil.Percentage(HPMax, 5.0 + 0.01 * Power + 5.0 + 0.03 * Stamina);
 
-            HPRec = (long)(0.2 * Stamina + 0.4 * Concentration);
+            HPRec = (long)(0.05 * Stamina + 0.15 * Concentration);
 
             MPMax = 5 * Intelli + 14 * Willpower;
             MPMax = MathUtil.Percentage(MPMax, 5.0 + 0.01 * Intelli + 5.0 + 0.03 * Willpower);
 
-            MPRec = (long)(0.25 * Willpower + 0.5 * Concentration);
+            MPRec = (long)(0.07 * Willpower + 0.2 * Concentration);
 
             Attack = 4 * Power + 2 * Stamina;
             Attack = MathUtil.Percentage(Attack, 5.0 + 0.004 * Power + 5.0 + 0.001 * Stamina);
