@@ -322,9 +322,6 @@ namespace NGDG2
                         writer.WriteLine("[Item]");
                         foreach(Slot slot in Inventory.Slots)
                         {
-                            if (slot.Item == null)
-                                continue;
-
                             writer.WriteLine($"{slot.Item.Name}|{slot.ItemCount}");
                         }
                         writer.WriteLine("*");
@@ -337,9 +334,6 @@ namespace NGDG2
                         writer.WriteLine("[Skill]");
                         foreach (SkillSlot skillSlot in SkillBook.Slots)
                         {
-                            if (skillSlot.Skill == null)
-                                continue;
-
                             writer.WriteLine($"{skillSlot.Skill.Name}|{skillSlot.SkillLevel}");
                         }
                         writer.WriteLine("*");

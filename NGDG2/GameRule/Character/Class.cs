@@ -38,8 +38,6 @@
 
         public Class(string name)
         {
-            Name = name;
-
             switch (name)
             {
                 case "Warrior":

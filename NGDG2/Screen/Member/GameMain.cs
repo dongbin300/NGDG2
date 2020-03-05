@@ -35,7 +35,7 @@ namespace NGDG2
             switch (key)
             {
                 case ConsoleKey.A:
-                    Character.SaveToFile("c1.txt");
+                    //TODO: 계정 저장
                     break;
                 case ConsoleKey.S:
                     ScreenManager.CurrentScreen = ScreenManager.Screen.DungeonSelection;
