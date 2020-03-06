@@ -69,7 +69,7 @@
             }
         }
 
-        public void Make(ItemRank rank, string description, int salePrice, int level = 0)
+        public void Make(ItemRank rank = ItemRank.Normal, string description = "", int salePrice = 0, int level = 0)
         {
             Rank = rank;
             Description = description;

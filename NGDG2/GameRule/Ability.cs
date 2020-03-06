@@ -263,13 +263,13 @@ namespace NGDG2
         /// </summary>
         public void CalculateStats()
         {
-            // 가장 기본이 되는 직업
+            // 가장 기본이 되는 직업과 레벨
             switch (Character.Class.ClassType)
             {
                 case Class.Type.Warrior:
-                    Power = 60;
-                    Stamina = 40;
-                    Intelli = 30;
+                    Power = 60 + 6 * Character.Level;
+                    Stamina = 40 + 4 * Character.Level;
+                    Intelli = 30 + 3 * Character.Level;
                     Willpower = 20;
                     Concentration = 20;
                     Agility = 10;
@@ -278,19 +278,19 @@ namespace NGDG2
                 case Class.Type.Magician:
                     Power = 20;
                     Stamina = 10;
-                    Intelli = 50;
-                    Willpower = 30;
-                    Concentration = 40;
+                    Intelli = 50 + 5 * Character.Level;
+                    Willpower = 30 + 3 * Character.Level;
+                    Concentration = 40 + 4 * Character.Level;
                     Agility = 30;
                     break;
 
                 case Class.Type.Gunner:
-                    Power = 30;
+                    Power = 30 + 3 * Character.Level;
                     Stamina = 20;
                     Intelli = 20;
                     Willpower = 20;
-                    Concentration = 30;
-                    Agility = 1200;
+                    Concentration = 30 + 3 * Character.Level;
+                    Agility = 60 + 6 * Character.Level;
                     break;
 
                 default:
