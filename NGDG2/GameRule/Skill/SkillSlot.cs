@@ -1,14 +1,30 @@
 ﻿namespace NGDG2
 {
+    /// <summary>
+    /// 스킬 슬롯
+    /// 
+    /// 슬롯 하나에는 한 종류의 스킬만 넣을 수 있다.
+    /// </summary>
     public class SkillSlot
     {
+        /// <summary>
+        /// 스킬
+        /// </summary>
         public Skill Skill;
+
+        /// <summary>
+        /// 스킬 레벨
+        /// </summary>
         public int SkillLevel;
+
+        /// <summary>
+        /// 스킬이 비어있는지 확인한다.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsEmpty() => Skill == null ? true : false;
 
         public SkillSlot()
         {
-            Skill = new Skill();
-            SkillLevel = 0;
         }
 
         /// <summary>

@@ -8,7 +8,12 @@ namespace NGDG2
 
         public SkillBook(int slotMaxCount)
         {
-            Slots = new List<SkillSlot>(slotMaxCount);
+            Slots = new List<SkillSlot>();
+
+            for (int i = 0; i < slotMaxCount; i++)
+            {
+                Slots.Add(new SkillSlot());
+            }
         }
 
         /// <summary>
@@ -20,17 +25,17 @@ namespace NGDG2
         public void Add(Skill skill, int level)
         {
             // 해당 스킬이 스킬북에 있는지 확인
-            SkillSlot slot = Slots.Find(s => s.Skill.Equals(skill));
+            SkillSlot skillSlot = Slots.FindAll(s => !s.IsEmpty()).Find(s => s.Item.Equals(skill));
 
             // 이미 있으면 스킬레벨만 더함
-            if (slot != null)
+            if (skillSlot != null)
             {
-                slot.SkillLevel += level;
+                skillSlot.SkillLevel += level;
             }
             // 없으면 스킬을 추가함
             else
             {
-                Slots.Find(s => s.SkillLevel.Equals(0)).Fill(skill, level);
+                Slots.Find(s => s.IsEmpty()).Fill(skill, level);
             }
         }
 

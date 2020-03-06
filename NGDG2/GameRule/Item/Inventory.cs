@@ -8,7 +8,12 @@ namespace NGDG2
 
         public Inventory(int slotMaxCount)
         {
-            Slots = new List<Slot>(slotMaxCount);
+            Slots = new List<Slot>();
+
+            for (int i = 0; i < slotMaxCount; i++)
+            {
+                Slots.Add(new Slot());
+            }
         }
 
         /// <summary>
@@ -19,18 +24,17 @@ namespace NGDG2
         public void Add(Item item, int count)
         {
             // 해당 아이템이 인벤토리에 있는지 확인
-            Slot slot = Slots.Find(s => s.Item.Equals(item));
+            Slot itemSlot = Slots.FindAll(s => !s.IsEmpty()).Find(s => s.Item.Equals(item));
 
             // 이미 있으면 개수만 더함
-            if (slot != null)
+            if (itemSlot != null)
             {
-                slot.ItemCount += count;
+                itemSlot.ItemCount += count;
             }
             // 없으면 아이템을 추가함
             else
             {
-                // 버그 존재
-                Slots.Find(s => s.ItemCount.Equals(0)).Fill(item, count);
+                Slots.Find(s => s.IsEmpty()).Fill(item, count);
             }
         }
 
