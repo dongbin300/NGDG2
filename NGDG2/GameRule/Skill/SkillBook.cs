@@ -25,7 +25,7 @@ namespace NGDG2
         public void Add(Skill skill, int level)
         {
             // 해당 스킬이 스킬북에 있는지 확인
-            SkillSlot skillSlot = Slots.FindAll(s => !s.IsEmpty()).Find(s => s.Item.Equals(skill));
+            SkillSlot skillSlot = Slots.FindAll(s => !s.IsEmpty()).Find(s => s.Skill.Equals(skill));
 
             // 이미 있으면 스킬레벨만 더함
             if (skillSlot != null)

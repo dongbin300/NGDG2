@@ -107,8 +107,8 @@ namespace NGDG2.Screen
             CHelper.WriteHighlight($"HP {Character.TotalAbility.HP}/{Character.TotalAbility.HPMax}", ScreenUtil.Left, 27, characterHit);
 
             // 던전 보상 정보
-            CHelper.Write($"EXP + {d.AccumulatedExp}", 80, 3, ConsoleColor.Green);
-            CHelper.Write($"Gold + {d.AccumulatedGold}", 80, 4, ConsoleColor.Yellow);
+            CHelper.Write($"EXP + {d.AccumulatedExp}", 65, 3, ConsoleColor.Green);
+            CHelper.Write($"Gold + {d.AccumulatedGold}", 65, 4, ConsoleColor.Yellow);
 
             int h = 5;
             foreach (Slot slot in d.AccumulatedItems.Slots)
@@ -116,7 +116,7 @@ namespace NGDG2.Screen
                 if (slot.Item == null)
                     continue;
 
-                CHelper.Write(string.Format("{0,-20}{1,-10}", slot.Item.Name, slot.ItemCount), 80, h++);
+                CHelper.Write(string.Format("{0,-20}{1,-4}", slot.Item.Name, slot.ItemCount), 65, h++);
             }
         }
 
@@ -211,7 +211,7 @@ namespace NGDG2.Screen
             // 아이템 드랍
             foreach(Item item in monster.DropItems)
             {
-                // 무조건 종류별로 1개씩만 드랍됨(버그 존재)
+                // 무조건 종류별로 1개씩만 드랍됨
                 d.AccumulatedItems.Add(item, 1);
             }
         }
