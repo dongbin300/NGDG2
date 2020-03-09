@@ -24,7 +24,7 @@ namespace NGDG2
         public void Add(Item item, int count)
         {
             // 해당 아이템이 인벤토리에 있는지 확인
-            Slot itemSlot = Slots.FindAll(s => !s.IsEmpty()).Find(s => s.Item.Equals(item));
+            Slot itemSlot = Slots.FindAll(s => !s.IsEmpty()).Find(s => s.Item.Name.Equals(item.Name));
 
             // 이미 있으면 개수만 더함
             if (itemSlot != null)
@@ -46,7 +46,7 @@ namespace NGDG2
         public void Remove(Item item, int count)
         {
             // 해당 아이템이 인벤토리에 있는지 확인
-            Slot slot = Slots.Find(s => s.Item.Equals(item));
+            Slot slot = Slots.Find(s => s.Item.Name.Equals(item.Name));
 
             // 있으면 개수만큼 제거함
             if (slot != null)
@@ -68,7 +68,7 @@ namespace NGDG2
         public void RemoveAll(Item item)
         {
             // 해당 아이템이 인벤토리에 있는지 확인
-            Slot slot = Slots.Find(s => s.Item.Equals(item));
+            Slot slot = Slots.Find(s => s.Item.Name.Equals(item.Name));
 
             // 있으면 제거함
             if (slot != null)

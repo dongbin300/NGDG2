@@ -279,7 +279,7 @@ namespace NGDG2
 
             EvasionRate += Math.Pow(Agility, 0.57);
 
-            CoolTick = (int)(50.0 - Math.Pow(AttackSpeed, 0.4));
+            CoolTick = (int)(20.0 - Math.Pow(AttackSpeed, 0.4));
         }
 
         /// <summary>

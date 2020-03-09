@@ -90,6 +90,7 @@ namespace NGDG2
         /// 장착중인 장비
         /// </summary>
         public static List<Equipment> MountEquipments;
+        // TODO: 장비 장착
 
         /// <summary>
         /// 스킬북
