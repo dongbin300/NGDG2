@@ -13,7 +13,8 @@ namespace NGDG2
         public enum CalculateRule
         {
             Character,
-            Monster
+            Monster,
+            Equipment
         }
 
         /// <summary>
@@ -170,6 +171,28 @@ namespace NGDG2
         }
 
         /// <summary>
+        /// 능력치를 리셋한다.
+        /// </summary>
+        /// <param name="calculateRule">계산 방식</param>
+        public void Reset(CalculateRule calculateRule)
+        {
+            switch (calculateRule)
+            {
+                case CalculateRule.Character:
+                    Power = Stamina = Intelli = Willpower = Concentration = Agility = HPMax = HPRec = MPMax = MPRec = Attack = Defense = AttackSpeed = 0;
+                    Accuracy = EvasionRate = 0;
+                    break;
+                case CalculateRule.Equipment:
+                    Power = Stamina = Intelli = Willpower = Concentration = Agility = HPMax = HPRec = MPMax = MPRec = Attack = Defense = AttackSpeed = 0;
+                    break;
+                case CalculateRule.Monster:
+                    HPMax = HPRec = MPMax = MPRec = Attack = Defense = AttackSpeed = 0;
+                    Accuracy = EvasionRate = 0;
+                    break;
+            }
+        }
+
+        /// <summary>
         /// 몬스터 생성 전용
         /// 몬스터를 생성할 때 스탯을 설정한다.
         /// </summary>
@@ -225,34 +248,36 @@ namespace NGDG2
         /// </summary>
         public void Calculate()
         {
+            Reset(_CalculateRule);
+
             // 캐릭터는 직업에 따라 스탯이 다르기 때문에 따로 스탯계산이 필요하다.
             if (_CalculateRule == CalculateRule.Character)
             {
                 CalculateStats();
             }
 
-            HPMax = 6 * Power + 15 * Stamina;
+            HPMax += 6 * Power + 15 * Stamina;
             HPMax = MathUtil.Percentage(HPMax, 5.0 + 0.01 * Power + 5.0 + 0.03 * Stamina);
 
-            HPRec = (long)(0.05 * Stamina + 0.15 * Concentration);
+            HPRec += (long)(0.05 * Stamina + 0.15 * Concentration);
 
-            MPMax = 5 * Intelli + 14 * Willpower;
+            MPMax += 5 * Intelli + 14 * Willpower;
             MPMax = MathUtil.Percentage(MPMax, 5.0 + 0.01 * Intelli + 5.0 + 0.03 * Willpower);
 
-            MPRec = (long)(0.07 * Willpower + 0.2 * Concentration);
+            MPRec += (long)(0.07 * Willpower + 0.2 * Concentration);
 
-            Attack = 4 * Power + 2 * Stamina;
+            Attack += 4 * Power + 2 * Stamina;
             Attack = MathUtil.Percentage(Attack, 5.0 + 0.004 * Power + 5.0 + 0.001 * Stamina);
 
-            Defense = 5 * Stamina;
+            Defense += 5 * Stamina;
             Defense = MathUtil.Percentage(Defense, 5.0 + 0.1 * Stamina);
 
-            AttackSpeed = 5 * Power + 12 * Agility;
+            AttackSpeed += 5 * Power + 12 * Agility;
             AttackSpeed = MathUtil.Percentage(AttackSpeed, 5.0 + 0.005 * Power + 5.0 + 0.01 * Agility);
 
-            Accuracy = 50.0 + Math.Pow(Concentration, 0.6);
+            Accuracy += 50.0 + Math.Pow(Concentration, 0.6);
 
-            EvasionRate = Math.Pow(Agility, 0.57);
+            EvasionRate += Math.Pow(Agility, 0.57);
 
             CoolTick = (int)(50.0 - Math.Pow(AttackSpeed, 0.4));
         }
@@ -267,35 +292,52 @@ namespace NGDG2
             switch (Character.Class.ClassType)
             {
                 case Class.Type.Warrior:
-                    Power = 60 + 6 * Character.Level;
-                    Stamina = 40 + 4 * Character.Level;
-                    Intelli = 30 + 3 * Character.Level;
-                    Willpower = 20;
-                    Concentration = 20;
-                    Agility = 10;
+                    Power += 60 + 6 * Character.Level;
+                    Stamina += 40 + 4 * Character.Level;
+                    Intelli += 30 + 3 * Character.Level;
+                    Willpower += 20;
+                    Concentration += 20;
+                    Agility += 10;
                     break;
 
                 case Class.Type.Magician:
-                    Power = 20;
-                    Stamina = 10;
-                    Intelli = 50 + 5 * Character.Level;
-                    Willpower = 30 + 3 * Character.Level;
-                    Concentration = 40 + 4 * Character.Level;
-                    Agility = 30;
+                    Power += 20;
+                    Stamina += 10;
+                    Intelli += 50 + 5 * Character.Level;
+                    Willpower += 30 + 3 * Character.Level;
+                    Concentration += 40 + 4 * Character.Level;
+                    Agility += 30;
                     break;
 
                 case Class.Type.Gunner:
-                    Power = 30 + 3 * Character.Level;
-                    Stamina = 20;
-                    Intelli = 20;
-                    Willpower = 20;
-                    Concentration = 30 + 3 * Character.Level;
-                    Agility = 60 + 6 * Character.Level;
+                    Power += 30 + 3 * Character.Level;
+                    Stamina += 20;
+                    Intelli += 20;
+                    Willpower += 20;
+                    Concentration += 30 + 3 * Character.Level;
+                    Agility += 60 + 6 * Character.Level;
                     break;
 
                 default:
-                    Power = Stamina = Intelli = Willpower = Concentration = Agility = 0;
                     break;
+            }
+
+            // 장비 효과
+            foreach(Equipment equipment in Character.MountEquipments)
+            {
+                Power += equipment.Effect.Power;
+                Stamina += equipment.Effect.Stamina;
+                Intelli += equipment.Effect.Intelli;
+                Willpower += equipment.Effect.Willpower;
+                Concentration += equipment.Effect.Concentration;
+                Agility += equipment.Effect.Agility;
+                HPMax += equipment.Effect.HPMax;
+                HPRec += equipment.Effect.HPRec;
+                MPMax += equipment.Effect.MPMax;
+                MPRec += equipment.Effect.MPRec;
+                Attack += equipment.Effect.Attack;
+                Defense += equipment.Effect.Defense;
+                AttackSpeed += equipment.Effect.AttackSpeed;
             }
         }
     }
