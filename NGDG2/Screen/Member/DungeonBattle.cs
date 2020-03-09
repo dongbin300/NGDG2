@@ -45,10 +45,10 @@ namespace NGDG2.Screen
         public void Update()
         {
             // 웨이브의 모든 몬스터를 잡았으면 다음 웨이브 진행
-            if(d.Waves[CurrentWave].Monsters.Count <= 0)
+            if (d.Waves[CurrentWave].Monsters.Count <= 0)
             {
                 // 모든 웨이브를 마쳤으면 던전 클리어
-                if(CurrentWave + 1 >= d.Waves.Count)
+                if (CurrentWave + 1 >= d.Waves.Count)
                 {
                     ClearDungeon();
                     return;
@@ -88,7 +88,7 @@ namespace NGDG2.Screen
             ScreenUtil.DrawSeparator(25);
 
             // 몬스터
-            foreach (Monster monster in d.Waves[CurrentWave].Monsters)
+            /*foreach (Monster monster in d.Waves[CurrentWave].Monsters)
             {
                 if (targets.Contains(monster))
                 {
@@ -98,7 +98,21 @@ namespace NGDG2.Screen
                 {
                     ScreenUtil.Stack(string.Format("{0,-12}{1,-20}", monster.Name, monster.TotalAbility.HP.ToString()));
                 }
+            }*/
 
+            for (int i = 0; i < d.Waves[CurrentWave].Monsters.Count; i++)
+            {
+                Monster monster = d.Waves[CurrentWave].Monsters[i];
+
+                if (targets.Contains(monster))
+                {
+                    CHelper.WriteHighlight(monster.Name, ScreenUtil.Left, 3 + i, monsterHit);
+                }
+                else
+                {
+                    CHelper.Write(monster.Name, ScreenUtil.Left, 3 + i);
+                }
+                CHelper.DrawStatusBar(monster.TotalAbility.HP, monster.TotalAbility.HPMax, 20, 3 + i, 20, ConsoleColor.Red, ConsoleColor.Black);
             }
 
             // 캐릭터
@@ -209,7 +223,7 @@ namespace NGDG2.Screen
             d.AccumulatedGold += monster.Gold;
 
             // 아이템 드랍
-            foreach(Item item in monster.DropItems)
+            foreach (Item item in monster.DropItems)
             {
                 // 무조건 종류별로 1개씩만 드랍됨
                 d.AccumulatedItems.Add(item, 1);

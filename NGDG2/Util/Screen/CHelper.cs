@@ -69,5 +69,25 @@ namespace NGDG2
 
             Console.BackgroundColor = ConsoleColor.Black;
         }
+
+        /// <summary>
+        /// 콘솔 상태바 출력
+        /// </summary>
+        /// <param name="current">현재 진행도</param>
+        /// <param name="max">최대 진행도</param>
+        /// <param name="x">좌표</param>
+        /// <param name="y">좌표</param>
+        /// <param name="length">막대 길이</param>
+        /// <param name="color">색상</param>
+        /// <param name="backColor">배경 색상</param>
+        public static void DrawStatusBar(long current, long max, int x=0, int y=0, int length = 10, ConsoleColor color = ConsoleColor.White, ConsoleColor backColor = ConsoleColor.Gray)
+        {
+            double ratio = current / (double)max;
+            int fill = (int)Math.Round(length * ratio);
+            int blank = length - fill;
+
+            DrawBar(x, y, fill, color);
+            DrawBar(x + fill, y, blank, backColor);
+        }
     }
 }
