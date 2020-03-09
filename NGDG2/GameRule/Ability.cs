@@ -174,9 +174,9 @@ namespace NGDG2
         /// 능력치를 리셋한다.
         /// </summary>
         /// <param name="calculateRule">계산 방식</param>
-        public void Reset(CalculateRule calculateRule)
+        public void Reset()
         {
-            switch (calculateRule)
+            switch (_CalculateRule)
             {
                 case CalculateRule.Character:
                     Power = Stamina = Intelli = Willpower = Concentration = Agility = HPMax = HPRec = MPMax = MPRec = Attack = Defense = AttackSpeed = 0;
@@ -248,7 +248,7 @@ namespace NGDG2
         /// </summary>
         public void Calculate()
         {
-            Reset(_CalculateRule);
+            Reset();
 
             // 캐릭터는 직업에 따라 스탯이 다르기 때문에 따로 스탯계산이 필요하다.
             if (_CalculateRule == CalculateRule.Character)

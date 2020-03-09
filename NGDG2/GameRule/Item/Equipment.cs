@@ -130,7 +130,7 @@
             Type = type;
             Rank = rank;
             Effect = new Ability(Ability.CalculateRule.Equipment);
-            Effect.Reset(Ability.CalculateRule.Equipment);
+            Effect.Reset();
 
             // 효과 파싱
             string[] effects = formattedEquipmentEffect.Split('/');
