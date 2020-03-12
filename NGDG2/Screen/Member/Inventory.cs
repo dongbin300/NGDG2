@@ -50,16 +50,18 @@ namespace NGDG2.Screen
                     CHelper.Write($"레벨 {selectedItem.Level}", 72, 4);
 
                 // 장비 효과 / 아이템 설명
-                if (selectedItem.Type == Item.ItemType.Equipment)
+                switch (selectedItem.Type)
                 {
-                    for (int i = 0; i < selectedItem.EffectStrings.Count; i++)
-                    {
-                        CHelper.Write(selectedItem.EffectStrings[i], 72, 6 + i);
-                    }
-                }
-                else
-                {
-                    CHelper.Write(selectedItem.Description, 72, 6);
+                    case Item.ItemType.Item:
+                        CHelper.Write(selectedItem.Description, 72, 6);
+                        break;
+
+                    case Item.ItemType.Equipment:
+                        for (int i = 0; i < selectedItem.EffectStrings.Count; i++)
+                        {
+                            CHelper.Write(selectedItem.EffectStrings[i], 72, 6 + i);
+                        }
+                        break;
                 }
 
                 // 판매 금액
@@ -102,13 +104,33 @@ namespace NGDG2.Screen
 
                 // 아이템 판매
                 case ConsoleKey.S:
-                    if(selectedItem != null)
+                    if (selectedItem != null)
                     {
                         // 선택한 아이템이 인벤토리에 있으면 판매
-                        if(Character.Inventory.HasItem(selectedItem))
+                        if (Character.Inventory.HasItem(selectedItem))
                         {
                             Character.Inventory.Remove(selectedItem, 1);
                             Character.Gold += selectedItem.SalePrice;
+                        }
+                    }
+                    break;
+
+                // 아이템 사용/장착
+                case ConsoleKey.Spacebar:
+                    if(selectedItem != null)
+                    {
+                        // 선택한 아이템이 인벤토리에 있으면 사용/장착
+                        if (Character.Inventory.HasItem(selectedItem))
+                        {
+                            switch (selectedItem.Type)
+                            {
+                                case Item.ItemType.Item:
+                                    break;
+
+                                case Item.ItemType.Equipment:
+                                    Character.MountEquipments.Equip(selectedItem.ToEquipment());
+                                    break;
+                            }
                         }
                     }
                     break;
