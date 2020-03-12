@@ -1,4 +1,6 @@
-﻿namespace NGDG2
+﻿using System.Collections.Generic;
+
+namespace NGDG2
 {
     /// <summary>
     /// 게임 내 모든 장비 (장비도 곧 아이템)
@@ -49,18 +51,17 @@
         /// <summary>
         /// 장비 유형
         /// </summary>
-        public EquipmentType Type;
+        public EquipmentType EqType;
 
         /// <summary>
         /// 장비 부위
         /// </summary>
-        public EquipmentPart Part => GetEquipmentPart(Type);
+        public EquipmentPart Part => GetEquipmentPart(EqType);
 
         /// <summary>
         /// 장착 효과
         /// </summary>
         public Ability Effect;
-
 
         public Equipment()
         {
@@ -134,13 +135,14 @@
         /// <param name="type">장비 유형</param>
         /// <param name="rank">아이템 등급</param>
         /// <param name="formattedEquipmentEffect">ex) "p15/s10/i7/w8/c12/a13/h150/m120/x4/y3/t165/d138/e25" => 힘 +15, 체력 +10, 지능 +7, 정신력 +8, 집중력 +12, 민첩 +13, HP MAX +150, MP MAX +120, HP회복 +4, MP회복 +3, 공격력 +165, 방어력 +138, 공격속도 +25</param>
-        public void Make(int level, EquipmentType type, ItemRank rank, string formattedEquipmentEffect)
+        void Make(int level, EquipmentType type, ItemRank rank, string formattedEquipmentEffect)
         {
             Level = level;
-            Type = type;
+            EqType = type;
             Rank = rank;
             Effect = new Ability(Ability.CalculateRule.Equipment);
             Effect.Reset();
+            EffectStrings = new List<string>();
 
             // 효과가 없는 장비
             if (formattedEquipmentEffect == string.Empty)
@@ -161,42 +163,55 @@
                 {
                     case "p":
                         Effect.Power = value;
+                        EffectStrings.Add($"힘 +{value}");
                         break;
                     case "s":
                         Effect.Stamina = value;
+                        EffectStrings.Add($"체력 +{value}");
                         break;
                     case "i":
                         Effect.Intelli = value;
+                        EffectStrings.Add($"지능 +{value}");
                         break;
                     case "w":
                         Effect.Willpower = value;
+                        EffectStrings.Add($"정신력 +{value}");
                         break;
                     case "c":
                         Effect.Concentration = value;
+                        EffectStrings.Add($"집중력 +{value}");
                         break;
                     case "a":
                         Effect.Agility = value;
+                        EffectStrings.Add($"민첩 +{value}");
                         break;
                     case "h":
                         Effect.HPMax = value;
+                        EffectStrings.Add($"HP MAX +{value}");
                         break;
                     case "x":
                         Effect.HPRec = value;
+                        EffectStrings.Add($"HP회복 +{value}");
                         break;
                     case "m":
                         Effect.MPMax = value;
+                        EffectStrings.Add($"MP MAX +{value}");
                         break;
                     case "y":
                         Effect.MPRec = value;
+                        EffectStrings.Add($"MP회복 +{value}");
                         break;
                     case "t":
                         Effect.Attack = value;
+                        EffectStrings.Add($"공격력 +{value}");
                         break;
                     case "d":
                         Effect.Defense = value;
+                        EffectStrings.Add($"방어력 +{value}");
                         break;
                     case "e":
                         Effect.AttackSpeed = value;
+                        EffectStrings.Add($"공격속도 +{value}");
                         break;
                 }
             }

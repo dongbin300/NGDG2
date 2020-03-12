@@ -41,11 +41,11 @@ namespace NGDG2
                 return false;
 
             // 직업 제한
-            if (newEquipment.Type == Equipment.EquipmentType.Sword && Character.Class.ClassType != Class.Type.Warrior)
+            if (newEquipment.EqType == Equipment.EquipmentType.Sword && Character.Class.ClassType != Class.Type.Warrior)
                 return false;
-            if (newEquipment.Type == Equipment.EquipmentType.Staff && Character.Class.ClassType != Class.Type.Magician)
+            if (newEquipment.EqType == Equipment.EquipmentType.Staff && Character.Class.ClassType != Class.Type.Magician)
                 return false;
-            if (newEquipment.Type == Equipment.EquipmentType.Gun && Character.Class.ClassType != Class.Type.Gunner)
+            if (newEquipment.EqType == Equipment.EquipmentType.Gun && Character.Class.ClassType != Class.Type.Gunner)
                 return false;
 
             // 레벨 제한

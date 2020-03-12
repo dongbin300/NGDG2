@@ -4,6 +4,9 @@ namespace NGDG2.Screen
 {
     public class Inventory : IScreen
     {
+        string keyLog = string.Empty;
+        Item selectedItem = null;
+
         public Inventory()
         {
         }
@@ -33,13 +36,69 @@ namespace NGDG2.Screen
                 CHelper.Write(string.Format("{0,-20}[{1}]", slot.Item.Name, slot.ItemCount), 8 + 20 * (i / 10), 3 + (i % 10));
             }
 
+            // 구분자
             ScreenUtil.DrawVerticalSeparator(70);
+
+            // 아이템 정보
+            if (selectedItem != null)
+            {
+                // 아이템 이름
+                CHelper.Write(selectedItem.Name, 72, 3, selectedItem.Color);
+
+                // 아이템 사용/장착 레벨
+                if (selectedItem.Level != 0)
+                    CHelper.Write($"레벨 {selectedItem.Level}", 72, 4);
+
+                // 장비 효과 / 아이템 설명
+                if (selectedItem.Type == Item.ItemType.Equipment)
+                {
+                    for (int i = 0; i < selectedItem.EffectStrings.Count; i++)
+                    {
+                        CHelper.Write(selectedItem.EffectStrings[i], 72, 6 + i);
+                    }
+                }
+                else
+                {
+                    CHelper.Write(selectedItem.Description, 72, 6);
+                }
+
+                // 판매 금액
+                CHelper.Write($"{selectedItem.SalePrice} 골드", 72, 38);
+            }
         }
 
         public string React(ConsoleKey key)
         {
             switch (key)
             {
+                // 아이템 선택
+                case ConsoleKey.D1:
+                case ConsoleKey.D2:
+                case ConsoleKey.D3:
+                case ConsoleKey.D4:
+                case ConsoleKey.D5:
+                case ConsoleKey.D6:
+                case ConsoleKey.D7:
+                case ConsoleKey.D8:
+                case ConsoleKey.D9:
+                case ConsoleKey.D0:
+                    if (keyLog.Length == 2)
+                    {
+                        keyLog = string.Empty;
+                    }
+
+                    keyLog += ((int)key - 48).ToString();
+
+                    if (keyLog.Length == 2)
+                    {
+                        int num = int.Parse(keyLog);
+
+                        if (num >= 1 && num <= Character.Inventory.Slots.Count)
+                        {
+                            selectedItem = Character.Inventory.Slots[num - 1].Item;
+                        }
+                    }
+                    break;
                 case ConsoleKey.Escape:
                     ScreenManager.CurrentScreen = ScreenManager.Screen.Main;
                     break;

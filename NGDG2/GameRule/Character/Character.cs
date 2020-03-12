@@ -110,7 +110,7 @@ namespace NGDG2
         public Character()
         {
             Class = new Class();
-            Inventory = new Inventory(10);
+            Inventory = new Inventory(36);
             MountEquipments = new EquipmentSystem();
             SkillBook = new SkillBook(10);
 
