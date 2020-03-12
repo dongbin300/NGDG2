@@ -88,7 +88,7 @@ namespace NGDG2.Screen
             ScreenUtil.DrawHotKeyNavigator(new HotKeyNavigator().AddHotKey("SPACE", "공격"));
 
             // 구분자
-            ScreenUtil.DrawSeparator(25);
+            ScreenUtil.DrawHorizontalSeparator(25);
 
             // 몬스터
             /*foreach (Monster monster in d.Waves[CurrentWave].Monsters)

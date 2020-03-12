@@ -25,12 +25,26 @@ namespace NGDG2
         }
 
         /// <summary>
-        /// 콘솔창 구분자를 그린다.
+        /// 콘솔창 가로 구분자를 그린다.
         /// </summary>
         /// <param name="y">좌표</param>
-        public static void DrawSeparator(int y)
+        public static void DrawHorizontalSeparator(int y)
         {
             CHelper.Write("├─────────────────────────────────────────────────────────────────────────────────────────────────┤", 0, y);
+        }
+
+        /// <summary>
+        /// 콘솔창 세로 구분자를 그린다.
+        /// </summary>
+        /// <param name="x">좌표</param>
+        public static void DrawVerticalSeparator(int x)
+        {
+            CHelper.Write("┬", x, 2);
+            for (int i = 3; i <= 38; i++)
+            {
+                CHelper.Write("│", x, i);
+            }
+            CHelper.Write("┴", x, 39);
         }
 
         /// <summary>
@@ -39,7 +53,7 @@ namespace NGDG2
         public static void DrawTitle(string titleText, ConsoleColor color = ConsoleColor.White)
         {
             CHelper.Write(titleText, Left, 1, color);
-            DrawSeparator(2);
+            DrawHorizontalSeparator(2);
         }
 
         /// <summary>

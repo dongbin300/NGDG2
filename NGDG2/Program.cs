@@ -21,6 +21,9 @@ namespace NGDG2
             // 임시로 3000 * 100을 콘솔 시작 위치로 잡아놓음(개발자 편의)
             SetWindowPos(MyConsole, 0, 3000, 100, 0, 0, SWP_NOSIZE);
 
+            // 콘솔 커서를 안보이게 함
+            Console.CursorVisible = false;
+
             // 게임 엔진을 만들어서 돌림
             GameEngine engine = new GameEngine("게임엔진1", 100);
             engine.Start();

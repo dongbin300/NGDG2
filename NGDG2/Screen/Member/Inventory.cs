@@ -32,6 +32,8 @@ namespace NGDG2.Screen
 
                 CHelper.Write(string.Format("{0,-20}[{1}]", slot.Item.Name, slot.ItemCount), 8 + 20 * (i / 10), 3 + (i % 10));
             }
+
+            ScreenUtil.DrawVerticalSeparator(70);
         }
 
         public string React(ConsoleKey key)
