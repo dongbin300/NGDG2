@@ -16,6 +16,9 @@ namespace NGDG2.Screen
             // 타이틀
             ScreenUtil.DrawTitle("던전 클리어!", ConsoleColor.Green);
 
+            // 바로가기
+            ScreenUtil.DrawHotKeyNavigator(new HotKeyNavigator().AddHotKey("SPACE", "확인"));
+
             // 던전 클리어 보상
             ScreenUtil.Stack($"{d.Name} 클리어!", ConsoleColor.Cyan);
             ScreenUtil.Stack("");
@@ -29,9 +32,6 @@ namespace NGDG2.Screen
 
                 ScreenUtil.Stack(string.Format("{0,-20}{1,-4}", slot.Item.Name, slot.ItemCount));
             }
-
-            // 바로가기
-            CHelper.Write("[SPACE] 확인", 80, 3);
         }
 
         public string React(ConsoleKey key)

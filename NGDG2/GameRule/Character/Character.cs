@@ -89,8 +89,7 @@ namespace NGDG2
         /// <summary>
         /// 장착중인 장비
         /// </summary>
-        public static List<Equipment> MountEquipments;
-        // TODO: 장비 장착
+        public static EquipmentSystem MountEquipments;
 
         /// <summary>
         /// 스킬북
@@ -112,7 +111,7 @@ namespace NGDG2
         {
             Class = new Class();
             Inventory = new Inventory(10);
-            MountEquipments = new List<Equipment>();
+            MountEquipments = new EquipmentSystem();
             SkillBook = new SkillBook(10);
 
             TotalAbility = new Ability(Ability.CalculateRule.Character);
@@ -330,7 +329,7 @@ namespace NGDG2
                         }
                         writer.WriteLine("*");
                         writer.WriteLine("[MountEquipment]");
-                        foreach (Equipment equipment in MountEquipments)
+                        foreach (Equipment equipment in MountEquipments.equipments)
                         {
                             writer.WriteLine(equipment.Name);
                         }

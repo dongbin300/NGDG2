@@ -17,8 +17,13 @@ namespace NGDG2.Screen
 
         public void Show()
         {
+            // 타이틀
             ScreenUtil.DrawTitle("던전", ConsoleColor.Green);
 
+            // 바로가기
+            ScreenUtil.DrawHotKeyNavigator(new HotKeyNavigator().AddHotKey("ESC", "뒤로가기"));
+
+            // 던전
             switch (ScreenID)
             {
                 case 1:
@@ -45,6 +50,9 @@ namespace NGDG2.Screen
                         case ConsoleKey.D6:
                             ScreenManager.DungeonBattle.Make(dungeonNames[(int)key - 49]);
                             ScreenManager.CurrentScreen = ScreenManager.Screen.DungeonBattle;
+                            break;
+                        case ConsoleKey.Escape:
+                            ScreenManager.CurrentScreen = ScreenManager.Screen.Main;
                             break;
                     }
                     break;

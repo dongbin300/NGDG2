@@ -84,6 +84,9 @@ namespace NGDG2.Screen
             // 타이틀
             ScreenUtil.DrawTitle($"{d.Name} WAVE {CurrentWave + 1}");
 
+            // 바로가기
+            ScreenUtil.DrawHotKeyNavigator(new HotKeyNavigator().AddHotKey("SPACE", "공격"));
+
             // 구분자
             ScreenUtil.DrawSeparator(25);
 

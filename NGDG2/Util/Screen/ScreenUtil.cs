@@ -27,7 +27,7 @@ namespace NGDG2
         /// <summary>
         /// 콘솔창 구분자를 그린다.
         /// </summary>
-        /// <param name="y"></param>
+        /// <param name="y">좌표</param>
         public static void DrawSeparator(int y)
         {
             CHelper.Write("├─────────────────────────────────────────────────────────────────────────────────────────────────┤", 0, y);
@@ -40,6 +40,16 @@ namespace NGDG2
         {
             CHelper.Write(titleText, Left, 1, color);
             DrawSeparator(2);
+        }
+
+        /// <summary>
+        /// 콘솔창 바로가기 키 도움말을 그린다.
+        /// </summary>
+        /// <param name="hotKeyNavigator">핫키 내비게이터</param>
+        /// <param name="color">색상</param>
+        public static void DrawHotKeyNavigator(HotKeyNavigator hotKeyNavigator, ConsoleColor color = ConsoleColor.White)
+        {
+            CHelper.Write(string.Format("{0, 60}", hotKeyNavigator.ToString()), 25, 1, color);
         }
 
         /// <summary>

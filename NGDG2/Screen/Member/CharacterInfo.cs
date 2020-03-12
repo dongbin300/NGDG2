@@ -13,6 +13,9 @@ namespace NGDG2.Screen
             // 타이틀
             ScreenUtil.DrawTitle("캐릭터 정보", ConsoleColor.Green);
 
+            // 바로가기
+            ScreenUtil.DrawHotKeyNavigator(new HotKeyNavigator().AddHotKey("ESC", "뒤로가기"));
+
             // 캐릭터 스탯
             ScreenUtil.Stack(Character.Name);
             ScreenUtil.Stack(Character.Class.Value);
@@ -33,8 +36,15 @@ namespace NGDG2.Screen
             ScreenUtil.Stack($"HP회복 {Character.TotalAbility.HPRec}");
             ScreenUtil.Stack($"MP회복 {Character.TotalAbility.MPRec}");
 
-            // 바로가기
-            CHelper.Write("[ESC] 뒤로가기", 80, 3);
+            // 장착중인 장비
+            CHelper.Write($"무기 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Weapon).Name}", 50, 3);
+            CHelper.Write($"모자 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Helmet).Name}", 50, 4);
+            CHelper.Write($"상의 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Armor).Name}", 50, 5);
+            CHelper.Write($"하의 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Trouser).Name}", 50, 6);
+            CHelper.Write($"신발 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Shoes).Name}", 50, 7);
+            CHelper.Write($"목걸이 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Necklace).Name}", 50, 8);
+            CHelper.Write($"반지 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Ring).Name}", 50, 9);
+            CHelper.Write($"엠블렘 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Emblem).Name}", 50, 10);
         }
 
         public string React(ConsoleKey key)

@@ -49,7 +49,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,6 +69,7 @@
     <Compile Include="GameRule\Character\Class.cs" />
     <Compile Include="GameRule\Dungeon\DungeonWave.cs" />
     <Compile Include="GameRule\Dungeon\Dungeon.cs" />
+    <Compile Include="GameRule\Item\EquipmentSystem.cs" />
     <Compile Include="Screen\Member\DungeonResult.cs" />
     <Compile Include="Screen\Member\Inventory.cs" />
     <Compile Include="Util\Screen\HighlightEffect.cs" />
@@ -88,6 +95,7 @@
     <Compile Include="Screen\ScreenManager.cs" />
     <Compile Include="Util\Math\MathUtil.cs" />
     <Compile Include="Util\Math\SmartRandom.cs" />
+    <Compile Include="Util\Screen\HotKeyNavigator.cs" />
     <Compile Include="Util\Screen\ScreenUtil.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +113,5 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
