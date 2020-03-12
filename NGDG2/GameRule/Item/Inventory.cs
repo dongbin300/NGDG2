@@ -23,13 +23,12 @@ namespace NGDG2
         /// <param name="count">아이템 개수</param>
         public void Add(Item item, int count)
         {
-            // 해당 아이템이 인벤토리에 있는지 확인
-            Slot itemSlot = Slots.FindAll(s => !s.IsEmpty()).Find(s => s.Item.Name.Equals(item.Name));
+            Slot slot = GetSlot(item);
 
-            // 이미 있으면 개수만 더함
-            if (itemSlot != null)
+            // 해당 아이템이 있으면 개수만 더함
+            if (slot != null)
             {
-                itemSlot.ItemCount += count;
+                slot.ItemCount += count;
             }
             // 없으면 아이템을 추가함
             else
@@ -45,10 +44,9 @@ namespace NGDG2
         /// <param name="count">아이템 개수</param>
         public void Remove(Item item, int count)
         {
-            // 해당 아이템이 인벤토리에 있는지 확인
-            Slot slot = Slots.Find(s => s.Item.Name.Equals(item.Name));
+            Slot slot = GetSlot(item);
 
-            // 있으면 개수만큼 제거함
+            // 해당 아이템이 있으면 개수만큼 제거함
             if (slot != null)
             {
                 slot.ItemCount -= count;
@@ -67,10 +65,9 @@ namespace NGDG2
         /// <param name="item">아이템</param>
         public void RemoveAll(Item item)
         {
-            // 해당 아이템이 인벤토리에 있는지 확인
-            Slot slot = Slots.Find(s => s.Item.Name.Equals(item.Name));
+            Slot slot = GetSlot(item);
 
-            // 있으면 제거함
+            // 해당 아이템이 있으면 제거함
             if (slot != null)
             {
                 slot.Empty();
@@ -87,6 +84,26 @@ namespace NGDG2
             {
                 slot.Empty();
             }
+        }
+
+        /// <summary>
+        /// 인벤토리에 해당 아이템이 있는지 확인한다.
+        /// </summary>
+        /// <param name="item">아이템</param>
+        /// <returns>있으면 true, 없으면 false</returns>
+        public bool HasItem(Item item)
+        {
+            return Slots.FindAll(s => !s.IsEmpty()).Find(s => s.Item.Name.Equals(item.Name)) != null ? true : false;
+        }
+
+        /// <summary>
+        /// 인벤토리에 해당 아이템이 있는 슬롯을 반환한다.
+        /// </summary>
+        /// <param name="item">아이템</param>
+        /// <returns>해당 아이템 슬롯</returns>
+        public Slot GetSlot(Item item)
+        {
+            return Slots.FindAll(s => !s.IsEmpty()).Find(s => s.Item.Name.Equals(item.Name));
         }
     }
 }

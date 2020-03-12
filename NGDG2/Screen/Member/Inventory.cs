@@ -17,7 +17,7 @@ namespace NGDG2.Screen
             ScreenUtil.DrawTitle("인벤토리", ConsoleColor.Green);
 
             // 바로가기
-            ScreenUtil.DrawHotKeyNavigator(new HotKeyNavigator().AddHotKey("ESC", "뒤로가기"));
+            ScreenUtil.DrawHotKeyNavigator(new HotKeyNavigator().AddHotKey("SPACE", "장착/사용").AddHotKey("S", "판매").AddHotKey("ESC", "뒤로가기"));
 
             // 아이템 번호
             for (int i = 0; i < 36; i++)
@@ -99,6 +99,20 @@ namespace NGDG2.Screen
                         }
                     }
                     break;
+
+                // 아이템 판매
+                case ConsoleKey.S:
+                    if(selectedItem != null)
+                    {
+                        // 선택한 아이템이 인벤토리에 있으면 판매
+                        if(Character.Inventory.HasItem(selectedItem))
+                        {
+                            Character.Inventory.Remove(selectedItem, 1);
+                            Character.Gold += selectedItem.SalePrice;
+                        }
+                    }
+                    break;
+
                 case ConsoleKey.Escape:
                     ScreenManager.CurrentScreen = ScreenManager.Screen.Main;
                     break;
