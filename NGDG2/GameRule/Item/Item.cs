@@ -331,15 +331,6 @@ namespace NGDG2
         }
 
         /// <summary>
-        /// 아이템을 장비로 변환한다.
-        /// </summary>
-        /// <returns>장비</returns>
-        /*public Equipment ToEquipment()
-        {
-            return new Equipment(Name);
-        }*/
-
-        /// <summary>
         /// 아이템 등급에 따른 이름 색상
         /// </summary>
         /// <param name="rank">아이템 등급</param>
