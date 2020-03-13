@@ -37,14 +37,14 @@ namespace NGDG2.Screen
             ScreenUtil.Stack($"MP회복 {Character.TotalAbility.MPRec}");
 
             // 장착중인 장비
-            CHelper.Write($"무기 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Weapon).Name}", 50, 3);
-            CHelper.Write($"모자 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Helmet).Name}", 50, 4);
-            CHelper.Write($"상의 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Armor).Name}", 50, 5);
-            CHelper.Write($"하의 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Trouser).Name}", 50, 6);
-            CHelper.Write($"신발 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Shoes).Name}", 50, 7);
-            CHelper.Write($"목걸이 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Necklace).Name}", 50, 8);
-            CHelper.Write($"반지 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Ring).Name}", 50, 9);
-            CHelper.Write($"엠블렘 / {Character.MountEquipments.GetEquipment(Equipment.EquipmentPart.Emblem).Name}", 50, 10);
+            CHelper.Write($"무기 / {Character.MountEquipments.GetEquipment(Item.EquipmentPart.Weapon).Name}", 50, 3);
+            CHelper.Write($"모자 / {Character.MountEquipments.GetEquipment(Item.EquipmentPart.Helmet).Name}", 50, 4);
+            CHelper.Write($"상의 / {Character.MountEquipments.GetEquipment(Item.EquipmentPart.Armor).Name}", 50, 5);
+            CHelper.Write($"하의 / {Character.MountEquipments.GetEquipment(Item.EquipmentPart.Trouser).Name}", 50, 6);
+            CHelper.Write($"신발 / {Character.MountEquipments.GetEquipment(Item.EquipmentPart.Shoes).Name}", 50, 7);
+            CHelper.Write($"목걸이 / {Character.MountEquipments.GetEquipment(Item.EquipmentPart.Necklace).Name}", 50, 8);
+            CHelper.Write($"반지 / {Character.MountEquipments.GetEquipment(Item.EquipmentPart.Ring).Name}", 50, 9);
+            CHelper.Write($"엠블렘 / {Character.MountEquipments.GetEquipment(Item.EquipmentPart.Emblem).Name}", 50, 10);
         }
 
         public string React(ConsoleKey key)

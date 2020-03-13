@@ -12,11 +12,11 @@ namespace NGDG2
         /// <summary>
         /// 장착중인 장비
         /// </summary>
-        public List<Equipment> equipments;
+        public List<Item> equipments;
 
         public EquipmentSystem()
         {
-            equipments = new List<Equipment>();
+            equipments = new List<Item>();
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace NGDG2
         /// 이 메서드는 캐릭터 데이터를 불러올 경우에만 호출한다.
         /// </summary>
         /// <param name="equipment">장비</param>
-        public void Add(Equipment equipment)
+        public void Add(Item equipment)
         {
             equipments.Add(equipment);
         }
@@ -34,18 +34,22 @@ namespace NGDG2
         /// </summary>
         /// <param name="newEquipment">장착할 장비</param>
         /// <returns>장착에 성공하면 true, 실패하면 false</returns>
-        public bool Equip(Equipment newEquipment)
+        public bool Equip(Item newEquipment)
         {
+            // 장비가 아님
+            if (newEquipment.Type != Item.ItemType.Equipment)
+                return false;
+
             // 장착하는 장비가 없음
             if (newEquipment == null)
                 return false;
 
             // 직업 제한
-            if (newEquipment.EqType == Equipment.EquipmentType.Sword && Character.Class.ClassType != Class.Type.Warrior)
+            if (newEquipment.EqType == Item.EquipmentType.Sword && Character.Class.ClassType != Class.Type.Warrior)
                 return false;
-            if (newEquipment.EqType == Equipment.EquipmentType.Staff && Character.Class.ClassType != Class.Type.Magician)
+            if (newEquipment.EqType == Item.EquipmentType.Staff && Character.Class.ClassType != Class.Type.Magician)
                 return false;
-            if (newEquipment.EqType == Equipment.EquipmentType.Gun && Character.Class.ClassType != Class.Type.Gunner)
+            if (newEquipment.EqType == Item.EquipmentType.Gun && Character.Class.ClassType != Class.Type.Gunner)
                 return false;
 
             // 레벨 제한
@@ -75,7 +79,7 @@ namespace NGDG2
         /// </summary>
         /// <param name="equipment">해제할 장비</param>
         /// <returns>해제에 성공하면 true, 실패하면 false</returns>
-        public bool Release(Equipment equipment)
+        public bool Release(Item equipment)
         {
             // 해제하는 장비가 없음
             if (equipment == null)
@@ -98,7 +102,7 @@ namespace NGDG2
         /// </summary>
         /// <param name="part">해제할 부위</param>
         /// <returns>해제에 성공하면 true, 실패하면 false</returns>
-        public bool Release(Equipment.EquipmentPart part)
+        public bool Release(Item.EquipmentPart part)
         {
             return Release(GetEquipment(part));
         }
@@ -108,11 +112,11 @@ namespace NGDG2
         /// </summary>
         /// <param name="part">장비 부위</param>
         /// <returns>해당 부위의 장비</returns>
-        public Equipment GetEquipment(Equipment.EquipmentPart part)
+        public Item GetEquipment(Item.EquipmentPart part)
         {
             var equipment = equipments.Find(eq => eq.Part.Equals(part));
 
-            return equipment == null ? new Equipment("없음") : equipment;
+            return equipment == null ? new Item("없음") : equipment;
         }
     }
 }

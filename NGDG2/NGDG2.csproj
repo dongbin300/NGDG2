@@ -73,7 +73,6 @@
     <Compile Include="Screen\Member\DungeonResult.cs" />
     <Compile Include="Screen\Member\Inventory.cs" />
     <Compile Include="Util\Screen\HighlightEffect.cs" />
-    <Compile Include="GameRule\Item\Equipment.cs" />
     <Compile Include="GameRule\Item\Inventory.cs" />
     <Compile Include="GameRule\Item\Item.cs" />
     <Compile Include="GameRule\Monster\Monster.cs" />

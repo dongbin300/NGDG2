@@ -239,7 +239,7 @@ namespace NGDG2
                                         if (str == "*")
                                             break;
 
-                                        MountEquipments.Add(new Equipment(str));
+                                        MountEquipments.Add(new Item(str));
                                     }
                                     break;
                                 case "[Skill]":
@@ -329,7 +329,7 @@ namespace NGDG2
                         }
                         writer.WriteLine("*");
                         writer.WriteLine("[MountEquipment]");
-                        foreach (Equipment equipment in MountEquipments.equipments)
+                        foreach (Item equipment in MountEquipments.equipments)
                         {
                             writer.WriteLine(equipment.Name);
                         }

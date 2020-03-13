@@ -52,7 +52,11 @@ namespace NGDG2.Screen
                 // 장비 효과 / 아이템 설명
                 switch (selectedItem.Type)
                 {
-                    case Item.ItemType.Item:
+                    case Item.ItemType.Material:
+                        CHelper.Write(selectedItem.Description, 72, 6);
+                        break;
+
+                    case Item.ItemType.Potion:
                         CHelper.Write(selectedItem.Description, 72, 6);
                         break;
 
@@ -124,11 +128,14 @@ namespace NGDG2.Screen
                         {
                             switch (selectedItem.Type)
                             {
-                                case Item.ItemType.Item:
+                                case Item.ItemType.Material:
+                                    break;
+
+                                case Item.ItemType.Potion:
                                     break;
 
                                 case Item.ItemType.Equipment:
-                                    Character.MountEquipments.Equip(selectedItem.ToEquipment());
+                                    Character.MountEquipments.Equip(selectedItem);
                                     break;
                             }
                         }

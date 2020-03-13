@@ -323,7 +323,7 @@ namespace NGDG2
             }
 
             // 장비 효과
-            foreach(Equipment equipment in Character.MountEquipments.equipments)
+            foreach(Item equipment in Character.MountEquipments.equipments)
             {
                 Power += equipment.Effect.Power;
                 Stamina += equipment.Effect.Stamina;
