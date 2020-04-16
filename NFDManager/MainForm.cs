@@ -170,6 +170,7 @@ namespace NFDManager
                     });
 
                     NFDFileWriter.WriteDungeon(dungeons);
+                    dungeonButton_Click(sender, e);
                     break;
 
                 case Type.Monster:
@@ -188,6 +189,7 @@ namespace NFDManager
                     });
 
                     NFDFileWriter.WriteMonster(monsters);
+                    monsterButton_Click(sender, e);
                     break;
 
                 case Type.Material:
@@ -201,6 +203,7 @@ namespace NFDManager
                     });
 
                     NFDFileWriter.WriteMaterial(materials);
+                    materialButton_Click(sender, e);
                     break;
 
                 case Type.Equipment:
@@ -214,6 +217,7 @@ namespace NFDManager
                     });
 
                     NFDFileWriter.WriteEquipment(equipments);
+                    equipmentButton_Click(sender, e);
                     break;
             }
         }

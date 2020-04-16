@@ -82,7 +82,7 @@ namespace NGDG2.Screen
             Update();
 
             // 타이틀
-            ScreenUtil.DrawTitle($"{d.Name} WAVE {CurrentWave + 1}");
+            ScreenUtil.DrawTitle($"{d.Name} WAVE {CurrentWave + 1}/{d.Waves.Count}");
 
             // 바로가기
             ScreenUtil.DrawHotKeyNavigator(new HotKeyNavigator().AddHotKey("SPACE", "공격"));
@@ -133,7 +133,7 @@ namespace NGDG2.Screen
                 if (slot.Item == null)
                     continue;
 
-                CHelper.Write(string.Format("{0,-20}{1,-4}", slot.Item.Name, slot.ItemCount), 65, h++);
+                CHelper.Write(string.Format("{0,-20}{1,-4}", slot.Item.Name, slot.ItemCount), 65, h++, slot.Item.Color);
             }
         }
 

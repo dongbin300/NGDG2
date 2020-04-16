@@ -21,7 +21,7 @@ namespace NGDG2
         /// </summary>
         /// <param name="item">아이템</param>
         /// <param name="count">아이템 개수</param>
-        public void Add(Item item, int count)
+        public void Add(Item item, int count = 1)
         {
             Slot slot = GetSlot(item);
 
@@ -42,7 +42,7 @@ namespace NGDG2
         /// </summary>
         /// <param name="item">아이템</param>
         /// <param name="count">아이템 개수</param>
-        public void Remove(Item item, int count)
+        public void Remove(Item item, int count = 1)
         {
             Slot slot = GetSlot(item);
 

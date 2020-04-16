@@ -33,7 +33,7 @@ namespace NGDG2.Screen
                 if (slot.Item == null)
                     continue;
 
-                CHelper.Write(string.Format("{0,-20}[{1}]", slot.Item.Name, slot.ItemCount), 8 + 20 * (i / 10), 3 + (i % 10));
+                CHelper.Write(string.Format("{0,-20}[{1}]", slot.Item.Name, slot.ItemCount), 8 + 20 * (i / 10), 3 + (i % 10), slot.Item.Color);
             }
 
             // 구분자
@@ -75,6 +75,8 @@ namespace NGDG2.Screen
 
         public string React(ConsoleKey key)
         {
+            SmartRandom r = new SmartRandom();
+
             switch (key)
             {
                 // 아이템 선택
@@ -113,7 +115,7 @@ namespace NGDG2.Screen
                         // 선택한 아이템이 인벤토리에 있으면 판매
                         if (Character.Inventory.HasItem(selectedItem))
                         {
-                            Character.Inventory.Remove(selectedItem, 1);
+                            Character.Inventory.Remove(selectedItem);
                             Character.Gold += selectedItem.SalePrice;
                         }
                     }
@@ -129,6 +131,20 @@ namespace NGDG2.Screen
                             switch (selectedItem.Type)
                             {
                                 case Item.ItemType.Material:
+                                    switch(selectedItem.Name)
+                                    {
+                                        case "1레벨 낡은 장비 상자":
+                                            string[] list1 = { "낡은 검", "낡은 지팡이", "낡은 총", "낡은 가죽헬멧", "낡은 금속헬멧", "낡은 가죽아머", "낡은 금속아머", "낡은 가죽트라우저", "낡은 금속트라우저", "낡은 가죽슈즈", "낡은 금속슈즈", "낡은 강철목걸이", "낡은 합금목걸이", "낡은 강철반지", "낡은 합금반지", "낡은 엠블렘"};
+                                            Character.Inventory.Add(ItemDictionary.MakeItem(list1[r.Next(list1.Length)]));
+                                            Character.Inventory.Remove(selectedItem);
+                                            break;
+
+                                        case "5레벨 평범한 장비 상자":
+                                            string[] list2 = { "평범한 검", "평범한 지팡이", "평범한 총", "평범한 가죽헬멧", "평범한 금속헬멧", "평범한 가죽아머", "평범한 금속아머", "평범한 가죽트라우저", "평범한 금속트라우저", "평범한 가죽슈즈", "평범한 금속슈즈", "평범한 강철목걸이", "평범한 합금목걸이", "평범한 강철반지", "평범한 합금반지", "평범한 엠블렘" };
+                                            Character.Inventory.Add(ItemDictionary.MakeItem(list2[r.Next(list2.Length)]));
+                                            Character.Inventory.Remove(selectedItem);
+                                            break;
+                                    }
                                     break;
 
                                 case Item.ItemType.Potion:

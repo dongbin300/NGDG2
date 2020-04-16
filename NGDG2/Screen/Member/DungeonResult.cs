@@ -30,7 +30,7 @@ namespace NGDG2.Screen
                 if (slot.Item == null)
                     continue;
 
-                ScreenUtil.Stack(string.Format("{0,-20}{1,-4}", slot.Item.Name, slot.ItemCount));
+                ScreenUtil.Stack(string.Format("{0,-20}{1,-4}", slot.Item.Name, slot.ItemCount), slot.Item.Color);
             }
         }
 
