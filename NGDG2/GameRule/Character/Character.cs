@@ -228,7 +228,7 @@ namespace NGDG2
 
                                         string[] data = str.Split('|');
 
-                                        Inventory.Add(new Item(data[0]), int.Parse(data[1]));
+                                        Inventory.Add(ItemDictionary.MakeItem(data[0]), int.Parse(data[1]));
                                     }
                                     break;
                                 case "[MountEquipment]":
@@ -239,7 +239,7 @@ namespace NGDG2
                                         if (str == "*")
                                             break;
 
-                                        MountEquipments.Add(new Item(str));
+                                        MountEquipments.Add(ItemDictionary.MakeItem(str));
                                     }
                                     break;
                                 case "[Skill]":

@@ -25,8 +25,15 @@ namespace NGDG2
             Console.CursorVisible = false;
 
             // 게임 엔진을 만들어서 돌림
-            GameEngine engine = new GameEngine("게임엔진1", 100);
-            engine.Start();
+            try
+            {
+                GameEngine engine = new GameEngine("게임엔진1", 100);
+                engine.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[실행오류]{ex.Message}");
+            }
         }
     }
 }

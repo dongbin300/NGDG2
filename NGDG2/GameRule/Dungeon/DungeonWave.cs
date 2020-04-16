@@ -23,13 +23,10 @@ namespace NGDG2
         {
             var r = new SmartRandom();
 
-
             Monsters = new List<Monster>();
             for (int i = 0; i < monsterCount; i++)
             {
-                Monsters.Add(
-                    new Monster(monsterList[r.Next(monsterList.Count)].Name)
-                    );
+                Monsters.Add(MonsterDictionary.MakeMonster(monsterList[r.Next(monsterList.Count)].Name));
             }
         }
     }

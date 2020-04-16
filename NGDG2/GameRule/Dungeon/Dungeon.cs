@@ -59,46 +59,37 @@ namespace NGDG2
         /// </summary>
         public Inventory AccumulatedItems;
 
+        /// <summary>
+        /// 던전 정보
+        /// </summary>
+        public string FormattedDungeonInfo;
+
         public Dungeon()
         {
 
         }
 
-        public Dungeon(string name)
+        /// <summary>
+        /// [생성자] 던전 정보를 설정한다.
+        /// </summary>
+        /// <param name="name">이름</param>
+        /// <param name="formattedDungeonInfo">던전 정보, ex) "3/고블린이병,고블린일병/3~5"</param>
+        public Dungeon(string name, string formattedDungeonInfo)
         {
             Name = name;
-
-            switch (name)
-            {
-                case "고블린 방":
-                    Make("3/고블린이병,고블린일병/2~3");
-                    break;
-                case "고블린 소굴":
-                    Make("3/고블린이병,고블린일병,고블린상병,고블린병장/3~5");
-                    break;
-                case "고블린 기지":
-                    Make("3/고블린상병,고블린병장,고블린하사/4~6");
-                    break;
-                case "고블린 아지트":
-                    Make("3/고블린하사,고블린중사,고블린상사/4~5");
-                    break;
-                case "고블린 성":
-                    Make("3/고블린이병,고블린상병,고블린중사,고블린상사/6~10");
-                    break;
-                case "고블린 왕국":
-                    Make("5/고블린이병,고블린일병,고블린상병,고블린병장,고블린하사,고블린중사,고블린상사,고블린대장/8~10");
-                    break;
-            }
+            FormattedDungeonInfo = formattedDungeonInfo;
         }
 
         /// <summary>
-        /// 던전 생성
+        /// 던전을 만든다.
         /// </summary>
-        /// <param name="formattedDungeonInfo">ex) "3/고블린이병,고블린일병/3~5"</param>
-        public void Make(string formattedDungeonInfo)
+        public Dungeon Make(Dungeon frame)
         {
+            Name = frame.Name;
+            FormattedDungeonInfo = frame.FormattedDungeonInfo;
+
             // 인포 파싱
-            string[] infos = formattedDungeonInfo.Split('/');
+            string[] infos = FormattedDungeonInfo.Split('/');
 
             int waveCount = int.Parse(infos[0]);
             string[] monsterNames = infos[1].Split(',');
@@ -111,7 +102,7 @@ namespace NGDG2
             List<Monster> monsterList = new List<Monster>();
             foreach (string monsterName in monsterNames)
             {
-                monsterList.Add(new Monster(monsterName));
+                monsterList.Add(MonsterDictionary.MakeMonster(monsterName));
             }
 
             // 던전 웨이브 생성
@@ -124,7 +115,9 @@ namespace NGDG2
             // 던전 보상 초기화
             AccumulatedExp = 0;
             AccumulatedGold = 0;
-            AccumulatedItems = new Inventory(20);
+            AccumulatedItems = new Inventory(20); // 한 던전에서의 아이템 획득 종류 최대 20
+
+            return this;
         }
     }
 }

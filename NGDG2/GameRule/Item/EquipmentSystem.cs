@@ -116,7 +116,7 @@ namespace NGDG2
         {
             var equipment = equipments.Find(eq => eq.Part.Equals(part));
 
-            return equipment == null ? new Item("없음") : equipment;
+            return equipment == null ? ItemDictionary.MakeItem("없음") : equipment;
         }
     }
 }

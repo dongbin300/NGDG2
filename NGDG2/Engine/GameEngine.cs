@@ -38,6 +38,12 @@ namespace NGDG2
             Name = name;
             UpdateInterval = updateInterval;
 
+            // 리소스 로드
+            if (!LoadResource())
+            {
+                throw new Exception("리소스 로드 실패!"); // 실패 
+            }
+
             Initialize();
         }
 
@@ -46,11 +52,40 @@ namespace NGDG2
         /// </summary>
         public void Initialize()
         {
-            // 스크린매니저 초기화
-            _ = new ScreenManager();
-
             // 기본화면은 인트로
             ScreenManager.CurrentScreen = ScreenManager.Screen.Intro;
+        }
+
+        /// <summary>
+        /// 게임에 필요한 리소스를 불러온다.
+        /// 리소스가 하나라도 정상적으로 불러와지지않을 경우 즉시 종료한다.
+        /// </summary>
+        public bool LoadResource()
+        {
+            try
+            {
+                // 몬스터 리소스 로드
+                _ = new MonsterDictionary();
+
+                // 던전 리소스 로드
+                _ = new DungeonDictionary();
+
+                // 장비 리소스 로드
+                // 재료 리소스 로드
+                // 포션 리소스 로드
+                _ = new ItemDictionary();
+
+                // 화면 리소스 로드
+                _ = new ScreenManager();
+            }
+            catch
+            {
+                // 로드 실패
+                return false;
+            }
+
+            // 로드 성공
+            return true;
         }
 
         /// <summary>

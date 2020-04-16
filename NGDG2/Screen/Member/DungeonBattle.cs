@@ -33,7 +33,7 @@ namespace NGDG2.Screen
 
         public void Make(string name)
         {
-            d = new Dungeon(name);
+            d = DungeonDictionary.MakeDungeon(name);
             CurrentWave = 0;
 
             Character.Reset();

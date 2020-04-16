@@ -28,7 +28,7 @@ namespace NGDG2.Screen
                 "| _______ /  \\______ / \n"
                 , 39, 4);
 
-            CHelper.Write("V1.0", 55, 21);
+            CHelper.Write(GameInfo.Version, 55, 21);
 
             CHelper.Write(Pointer == 1 ? "▶ 1. 게임시작 ◀" : "   1. 게임시작   ", 41, 24);
             CHelper.Write(Pointer == 2 ? "▶ 2. 도움말 ◀" : "   2. 도움말   ", 41, 25);

@@ -5,10 +5,8 @@ namespace NGDG2
 {
     /// <summary>
     /// 게임 내 모든 아이템 (장비도 포함)
-    /// TODO :: Item을 재료, 포션, 장비 등 타입으로만 구분
-    /// 기존 Equipment 클래스는 날려버림
-    /// Item 클래스 안에서 모든 걸 처리함
-    /// 그대신 EquipmentSystem 클래스는 남겨둠
+    /// TODO :: 아이템, 스킬, 몬스터 등등 데이터가 많을것같은 정보들을 담고 있느 파일 포맷 하나 만들어야 하는데NFD
+    /// Material.NFD, Potion.NFD, Equipment.NFD, Skill.NFD, Monster.NFD
     /// </summary>
     public class Item
     {
@@ -150,119 +148,225 @@ namespace NGDG2
         /// </summary>
         public Ability Effect;
 
+        /// <summary>
+        /// 장비 효과 정보
+        /// </summary>
+        public string FormattedEquipmentEffect;
+
+        /// <summary>
+        /// 포션 효과 정보
+        /// </summary>
+        public string FormattedPotionEffect;
+
         public Item()
         {
 
         }
 
-        public Item(string name)
+        /// <summary>
+        /// [생성자] 장비 아이템을 설정한다.
+        /// </summary>
+        /// <param name="name">이름</param>
+        /// <param name="level">장착 최소레벨</param>
+        /// <param name="equipmentType">장비 유형</param>
+        /// <param name="itemRank">아이템 등급</param>
+        /// <param name="formattedEquipmentEffect">장비 효과 정보, ex) "p15/s10/i7/w8/c12/a13/h150/m120/x4/y3/t165/d138/e25" => 힘 +15, 체력 +10, 지능 +7, 정신력 +8, 집중력 +12, 민첩 +13, HP MAX +150, MP MAX +120, HP회복 +4, MP회복 +3, 공격력 +165, 방어력 +138, 공격속도 +25</param>
+        public Item(string name, int level, string equipmentType, string itemRank, string formattedEquipmentEffect)
         {
+            Type = ItemType.Equipment;
+
             Name = name;
+            Level = level;
 
-            switch (name)
+            switch (equipmentType)
             {
-                case "고블린 가죽":
-                    Make(ItemRank.Normal, "고블린의 가죽이다.", 50);
+                case "0":
+                    EqType = EquipmentType.None;
                     break;
-
-                case "없음":
-                    Make(0, EquipmentType.None, ItemRank.Normal, "");
+                case "1":
+                    EqType = EquipmentType.Sword;
                     break;
-                case "낡은 검":
-                    Make(1, EquipmentType.Sword, ItemRank.Normal, "p3/t15");
+                case "2":
+                    EqType = EquipmentType.Staff;
                     break;
-                case "낡은 지팡이":
-                    Make(1, EquipmentType.Staff, ItemRank.Normal, "i3/t15");
+                case "3":
+                    EqType = EquipmentType.Gun;
                     break;
-                case "낡은 총":
-                    Make(1, EquipmentType.Gun, ItemRank.Normal, "a3/t15");
+                case "4":
+                    EqType = EquipmentType.LeatherHelmet;
                     break;
-                case "낡은 가죽헬멧":
-                    Make(1, EquipmentType.LeatherHelmet, ItemRank.Normal, "i2/w2/a2/d12");
+                case "5":
+                    EqType = EquipmentType.MetalHelmet;
                     break;
-                case "낡은 금속헬멧":
-                    Make(1, EquipmentType.MetalHelmet, ItemRank.Normal, "p2/s2/c2/d18");
+                case "6":
+                    EqType = EquipmentType.LeatherArmor;
                     break;
-                case "낡은 가죽아머":
-                    Make(1, EquipmentType.LeatherArmor, ItemRank.Normal, "i4/w4/a4/d24");
+                case "7":
+                    EqType = EquipmentType.MetalArmor;
                     break;
-                case "낡은 금속아머":
-                    Make(1, EquipmentType.MetalArmor, ItemRank.Normal, "p4/s4/c4/d36");
+                case "8":
+                    EqType = EquipmentType.LeatherTrouser;
                     break;
-                case "낡은 가죽트라우저":
-                    Make(1, EquipmentType.LeatherTrouser, ItemRank.Normal, "i3/w3/a3/d18");
+                case "9":
+                    EqType = EquipmentType.MetalTrouser;
                     break;
-                case "낡은 금속트라우저":
-                    Make(1, EquipmentType.MetalTrouser, ItemRank.Normal, "p3/s3/c3/d27");
+                case "10":
+                    EqType = EquipmentType.LeatherShoes;
                     break;
-                case "낡은 가죽슈즈":
-                    Make(1, EquipmentType.LeatherShoes, ItemRank.Normal, "i2/w2/a2/d12");
+                case "11":
+                    EqType = EquipmentType.MetalShoes;
                     break;
-                case "낡은 금속슈즈":
-                    Make(1, EquipmentType.MetalShoes, ItemRank.Normal, "p2/s2/c2/d18");
+                case "12":
+                    EqType = EquipmentType.SteelNecklace;
                     break;
-                case "낡은 강철목걸이":
-                    Make(1, EquipmentType.SteelNecklace, ItemRank.Normal, "h15/m20");
+                case "13":
+                    EqType = EquipmentType.AlloyNecklace;
                     break;
-                case "낡은 합금목걸이":
-                    Make(1, EquipmentType.AlloyNecklace, ItemRank.Normal, "h20/m15");
+                case "14":
+                    EqType = EquipmentType.SteelRing;
                     break;
-                case "낡은 강철반지":
-                    Make(1, EquipmentType.SteelRing, ItemRank.Normal, "x1/y1");
+                case "15":
+                    EqType = EquipmentType.AlloyRing;
                     break;
-                case "낡은 합금반지":
-                    Make(1, EquipmentType.AlloyRing, ItemRank.Normal, "x1/y1");
-                    break;
-                case "낡은 엠블렘":
-                    Make(1, EquipmentType.Emblem, ItemRank.Normal, "p1/s1/i1/w1/c1/a1/e5");
-                    break;
-
-                default:
+                case "16":
+                    EqType = EquipmentType.Emblem;
                     break;
             }
+
+            switch (itemRank)
+            {
+                case "1":
+                    Rank = ItemRank.Normal;
+                    break;
+                case "2":
+                    Rank = ItemRank.Exceed;
+                    break;
+                case "3":
+                    Rank = ItemRank.Rare;
+                    break;
+                case "4":
+                    Rank = ItemRank.Artifact;
+                    break;
+                case "5":
+                    Rank = ItemRank.Unique;
+                    break;
+                case "6":
+                    Rank = ItemRank.Epic;
+                    break;
+            }
+
+            FormattedEquipmentEffect = formattedEquipmentEffect;
         }
 
         /// <summary>
-        /// 아이템을 생성한다. (재료)
+        /// [생성자] 재료 아이템을 설정한다.
         /// </summary>
-        /// <param name="rank">아이템 등급</param>
+        /// <param name="name">이름</param>
+        /// <param name="itemRank">아이템 등급</param>
         /// <param name="description">아이템 설명</param>
-        /// <param name="salePrice">아이템 판매가격</param>
+        /// <param name="value">아이템 가치</param>
         /// <param name="level">아이템 레벨</param>
-        void Make(ItemRank rank = ItemRank.Normal, string description = "", int value = 0, int level = 0)
+        public Item(string name, string itemRank, string description, int value, int level)
         {
             Type = ItemType.Material;
 
-            Rank = rank;
+            Name = name;
+
+            switch (itemRank)
+            {
+                case "1":
+                    Rank = ItemRank.Normal;
+                    break;
+                case "2":
+                    Rank = ItemRank.Exceed;
+                    break;
+                case "3":
+                    Rank = ItemRank.Rare;
+                    break;
+                case "4":
+                    Rank = ItemRank.Artifact;
+                    break;
+                case "5":
+                    Rank = ItemRank.Unique;
+                    break;
+                case "6":
+                    Rank = ItemRank.Epic;
+                    break;
+            }
+
             Description = description;
             Value = value;
             Level = level;
         }
 
         /// <summary>
-        /// 아이템을 생성한다. (장비)
+        /// [생성자] 포션 아이템을 설정한다.
         /// </summary>
-        /// <param name="level">장착 최소레벨</param>
-        /// <param name="type">장비 유형</param>
-        /// <param name="rank">아이템 등급</param>
-        /// <param name="formattedEquipmentEffect">ex) "p15/s10/i7/w8/c12/a13/h150/m120/x4/y3/t165/d138/e25" => 힘 +15, 체력 +10, 지능 +7, 정신력 +8, 집중력 +12, 민첩 +13, HP MAX +150, MP MAX +120, HP회복 +4, MP회복 +3, 공격력 +165, 방어력 +138, 공격속도 +25</param>
-        void Make(int level, EquipmentType type, ItemRank rank, string formattedEquipmentEffect)
+        /// <param name="name">이름</param>
+        /// <param name="itemRank">아이템 등급</param>
+        /// <param name="description">아이템 설명</param>
+        /// <param name="value">아이템 가치</param>
+        /// <param name="level">사용 최소레벨</param>
+        /// <param name="formattedPotionEffect">포션 효과 정보, ex)</param>
+        public Item(string name, string itemRank, string description, int value, int level, string formattedPotionEffect)
+        {
+            Type = ItemType.Potion;
+
+            Name = name;
+
+            switch (itemRank)
+            {
+                case "1":
+                    Rank = ItemRank.Normal;
+                    break;
+                case "2":
+                    Rank = ItemRank.Exceed;
+                    break;
+                case "3":
+                    Rank = ItemRank.Rare;
+                    break;
+                case "4":
+                    Rank = ItemRank.Artifact;
+                    break;
+                case "5":
+                    Rank = ItemRank.Unique;
+                    break;
+                case "6":
+                    Rank = ItemRank.Epic;
+                    break;
+            }
+
+            Description = description;
+            Value = value;
+            Level = level;
+            FormattedPotionEffect = formattedPotionEffect;
+        }
+
+        /// <summary>
+        /// 장비 아이템을 만든다.
+        /// </summary>
+        /// <returns></returns>
+        public Item MakeEquipment(Item frame)
         {
             Type = ItemType.Equipment;
 
-            Level = level;
-            EqType = type;
-            Rank = rank;
+            Name = frame.Name;
+            Level = frame.Level;
+            EqType = frame.EqType;
+            Rank = frame.Rank;
+
             Effect = new Ability(Ability.CalculateRule.Equipment);
             Effect.Reset();
             EffectStrings = new List<string>();
 
+            FormattedEquipmentEffect = frame.FormattedEquipmentEffect;
+
             // 효과가 없는 장비
-            if (formattedEquipmentEffect == string.Empty)
-                return;
+            if (StringUtil.IsEmpty(FormattedEquipmentEffect))
+                return this;
 
             // 효과 파싱
-            string[] effects = formattedEquipmentEffect.Split('/');
+            string[] effects = FormattedEquipmentEffect.Split('/');
 
             foreach (string effect in effects)
             {
@@ -328,6 +432,44 @@ namespace NGDG2
                         break;
                 }
             }
+
+            return this;
+        }
+
+        /// <summary>
+        /// 재료 아이템을 만든다.
+        /// </summary>
+        /// <returns></returns>
+        public Item MakeMaterial(Item frame)
+        {
+            Type = ItemType.Material;
+
+            Name = frame.Name;
+            Rank = frame.Rank;
+            Description = frame.Description;
+            Value = frame.Value;
+            Level = frame.Level;
+
+            return this;
+        }
+
+        /// <summary>
+        /// 포션 아이템을 만든다.
+        /// </summary>
+        /// <returns></returns>
+        public Item MakePotion(Item frame)
+        {
+            Type = ItemType.Potion;
+
+            Name = frame.Name;
+            Rank = frame.Rank;
+            Description = frame.Description;
+            Value = frame.Value;
+            Level = frame.Level;
+
+            // TODO: formattedPotionEffect
+
+            return this;
         }
 
         /// <summary>

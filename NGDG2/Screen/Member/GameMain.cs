@@ -9,13 +9,13 @@ namespace NGDG2.Screen
             // 캐릭터 initialize
             _ = new Character();
 
-            Character.LoadFromFile("c1.txt");
+            Character.LoadFromFile(PathUtil.AccountPath + "c1.txt");
         }
 
         public void Show()
         {
             // 타이틀
-            ScreenUtil.DrawTitle("NGDG2 V.0.1", ConsoleColor.Green);
+            ScreenUtil.DrawTitle("NGDG2 V" + GameInfo.Version, ConsoleColor.Green);
 
             // 바로가기
             ScreenUtil.DrawHotKeyNavigator(new HotKeyNavigator().AddHotKey("A", "저장").AddHotKey("S", "던전").AddHotKey("M", "내 캐릭터").AddHotKey("I", "인벤토리"));

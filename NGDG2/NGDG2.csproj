@@ -37,6 +37,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -67,11 +69,17 @@
     <Compile Include="GameRule\Ability.cs" />
     <Compile Include="GameRule\Character\Character.cs" />
     <Compile Include="GameRule\Character\Class.cs" />
+    <Compile Include="GameRule\Dungeon\DungeonDictionary.cs" />
     <Compile Include="GameRule\Dungeon\DungeonWave.cs" />
     <Compile Include="GameRule\Dungeon\Dungeon.cs" />
+    <Compile Include="GameRule\Item\ItemDictionary.cs" />
     <Compile Include="GameRule\Item\EquipmentSystem.cs" />
+    <Compile Include="GameRule\Monster\MonsterDictionary.cs" />
     <Compile Include="Screen\Member\DungeonResult.cs" />
     <Compile Include="Screen\Member\Inventory.cs" />
+    <Compile Include="Util\Environment\GameInfo.cs" />
+    <Compile Include="Util\Environment\PathUtil.cs" />
+    <Compile Include="Util\Expression\StringUtil.cs" />
     <Compile Include="Util\Screen\HighlightEffect.cs" />
     <Compile Include="GameRule\Item\Inventory.cs" />
     <Compile Include="GameRule\Item\Item.cs" />
@@ -99,6 +107,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Resource\NFD\Dungeon.nfd" />
+    <None Include="Resource\NFD\Equipment.nfd" />
+    <None Include="Resource\NFD\Material.nfd" />
+    <None Include="Resource\NFD\Monster.nfd" />
+    <None Include="Resource\NFD\Potion.nfd" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
