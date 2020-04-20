@@ -119,9 +119,11 @@ namespace NGDG2.Screen
             }
 
             // 캐릭터
-            CHelper.DrawBar(ScreenUtil.Left, 26, Character.AttackCool, Character.AttackCool == Character.TotalAbility.CoolTick ? ConsoleColor.Green : ConsoleColor.White);
-            CHelper.DrawBar(ScreenUtil.Left + Character.AttackCool, 26, Character.TotalAbility.CoolTick - Character.AttackCool, ConsoleColor.DarkGray);
-            CHelper.WriteHighlight($"HP {Character.TotalAbility.HP}/{Character.TotalAbility.HPMax}", ScreenUtil.Left, 27, characterHit);
+            CHelper.Write("공격", ScreenUtil.Left, 26, Character.AttackCool == Character.TotalAbility.CoolTick ? ConsoleColor.Green : ConsoleColor.White);
+            CHelper.DrawBar(ScreenUtil.Left + 6, 26, Character.AttackCool, Character.AttackCool == Character.TotalAbility.CoolTick ? ConsoleColor.Green : ConsoleColor.White);
+            CHelper.DrawBar(ScreenUtil.Left + 6 + Character.AttackCool, 26, Character.TotalAbility.CoolTick - Character.AttackCool, ConsoleColor.DarkGray);
+            CHelper.WriteHighlight($"HP", ScreenUtil.Left, 27, characterHit);
+            CHelper.DrawStatusBar(Character.TotalAbility.HP, Character.TotalAbility.HPMax, ScreenUtil.Left + 6, 27, 30, ConsoleColor.Red, ConsoleColor.DarkGray);
 
             // 던전 보상 정보
             CHelper.Write($"EXP + {d.AccumulatedExp}", 65, 3, ConsoleColor.Green);
@@ -149,6 +151,9 @@ namespace NGDG2.Screen
 
                         monsterHit.Start();
                     }
+                    break;
+                case ConsoleKey.Escape:
+                    DropOutDungeon();
                     break;
             }
 
@@ -262,6 +267,26 @@ namespace NGDG2.Screen
             // 던전 보상 화면 전환
             DungeonResult.d = d;
             ScreenManager.CurrentScreen = ScreenManager.Screen.DungeonResult;
+        }
+
+        /// <summary>
+        /// 던전을 포기
+        /// </summary>
+        public void DropOutDungeon()
+        {
+            // 보상 지급
+            Character.Exp += d.AccumulatedExp;
+            Character.Gold += d.AccumulatedGold;
+            foreach (Slot slot in d.AccumulatedItems.Slots)
+            {
+                if (slot.Item == null)
+                    continue;
+
+                Character.Inventory.Add(slot.Item, slot.ItemCount);
+            }
+
+            // 화면 전환
+            ScreenManager.CurrentScreen = ScreenManager.Screen.Main;
         }
     }
 }
